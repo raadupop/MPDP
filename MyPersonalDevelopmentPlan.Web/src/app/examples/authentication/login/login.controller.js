@@ -41,7 +41,7 @@
 
         function loginCompleted(result) {
             if (result.data.success) {
-                AuthenticationService.SetCredentials(vm.user, result);
+                AuthenticationService.SetCredentials(vm.user, result.data);
                 $state.go('triangular.admin-default.dashboard-analytics');
             }
 

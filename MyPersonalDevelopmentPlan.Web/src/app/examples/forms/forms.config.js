@@ -37,6 +37,10 @@
         .state('triangular.admin-default.forms-validation', {
             url: '/forms/validation',
             templateUrl: 'app/examples/forms/validation.tmpl.html'
+        })
+        .state('triangular.admin-default.goal-register', {
+            url: '/forms/goal-creation/goal-register-page',
+            templateUrl: 'app/examples/forms/goal-creation/goal-register-page.tmpl.html'
         });
 
         triMenuProvider.addMenu({
@@ -64,6 +68,10 @@
                 name: 'MENU.FORMS.VALIDATION',
                 type: 'link',
                 state: 'triangular.admin-default.forms-validation'
+            },{
+                name: 'Goal Registration',
+                type: 'link',
+                state: 'triangular.admin-default.goal-register'
             }]
         });
         triMenuProvider.addMenu({
