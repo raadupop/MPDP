@@ -9,7 +9,7 @@
         .factory('AuthenticationService', AuthenticationService);
 
     /* @ngInject */
-    function AuthenticationService($http, $cookieStore, $rootScope) {
+    function AuthenticationService($http, $cookieStore, $rootScope, ApiConfig) {
         var service = {};
 
         service.Login = Login;
@@ -19,7 +19,7 @@
         return service;
 
         function Login(user, successs, failure) {
-            $http.post('http://localhost:43504/api/account/login', user)
+            $http.post(ApiConfig + 'account/login', user)
                 .then(
                 function (response) {
                     successs(response);

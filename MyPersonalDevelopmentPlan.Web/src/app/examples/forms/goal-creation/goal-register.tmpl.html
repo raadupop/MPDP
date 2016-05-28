@@ -12,13 +12,13 @@
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Estimation</label>
-                <input type="text" name="estimation" ng-model="vm.goal.estimation" placeholder="Ex: 1d 6h 30m" estimation-date required/>
+                <input type="text" name="estimation" ng-model="vm.goal.estimation" placeholder="Ex: 1d 6h 30m" valid-estimation required/>
                 <div  ng-messages="goal.estimation.$error">
                     <span ng-message="estimationValidator">Please follow the example.</span>
                 </div>
             </md-input-container>
             <div layout="row" layout-align="end center">
-                <md-button class="md-primary" ng-click="vm.registerClick()" ng-disabled="goal-register.$invalid">Create</md-button>
+                <md-button class="md-primary" ng-click="vm.registerClick()" ng-disabled="goal.$invalid">Create</md-button>
                 <md-button>Cancel</md-button>
             </div>
         </form>

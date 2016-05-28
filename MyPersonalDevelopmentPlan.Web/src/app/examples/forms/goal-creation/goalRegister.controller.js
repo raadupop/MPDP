@@ -9,22 +9,56 @@
         .controller('GoalRegisterController', GoalRegisterController);
 
     /* @ngInject */
-    function GoalRegisterController(triSettings, ApiWebService, ApiConfig, $rootScope, $mdToast) {
+    function GoalRegisterController(triSettings, ApiWebService, ApiConfig, $rootScope, $mdToast, moment) {
         var vm = this;
         vm.registerClick = registerClick;
         vm.triSettings = triSettings;
 
         // todo validation !!
         vm.goal = {
-            user: $rootScope.globals.currentUser.username,
-            userId: $rootScope.globals.currentUser.userId,
             name: '',
-            description: ''
+            description: '',
+            estimation: ''
         };
 
         function registerClick(){
-            ApiWebService.post(ApiConfig + 'goal/creategoal', vm.goal, goalSucceded, goalFailed)
+
+            estimationTimeSpanWrapper(vm.goal.estimation);
+
+            var goalToSend = {
+                username: $rootScope.globals.currentUser.username,
+                userProfileId: $rootScope.globals.currentUser.userId,
+                name: vm.goal.name,
+                description: vm.goal.description,
+                estimation: estimationTimeSpanWrapper(vm.goal.estimation)
+            };
+
+            ApiWebService.post(ApiConfig + 'goal/creategoal', goalToSend, goalSucceded, goalFailed)
         }
+
+        function estimationTimeSpanWrapper(estimation){
+
+            var mrx = new RegExp(/([0-9][0-9]?)[ ]?m/);
+            var hrx = new RegExp(/([0-9][0-9]?)[ ]?h/);
+            var drx = new RegExp(/([0-9])[ ]?d/);
+
+            var days = 0;
+            var hours = 0;
+            var minutes = 0;
+
+            if (mrx.test(estimation)) {
+                minutes = mrx.exec(estimation)[1];
+            }
+            if (hrx.test(estimation)) {
+                hours = hrx.exec(estimation)[1];
+            }
+            if (drx.test(estimation)) {
+                days = drx.exec(estimation)[1];
+            }
+
+            return moment.duration(days + '.'  + hours + ':' + '' + minutes);
+        }
+
 
         function goalSucceded(){
             $mdToast.show(

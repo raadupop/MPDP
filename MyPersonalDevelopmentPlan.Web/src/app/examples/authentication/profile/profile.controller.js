@@ -44,10 +44,9 @@
         vm.user = {
             name: '',
             email: '',
-            location: 'Sitia, Crete, Greece',
-            website: 'http://www.oxygenna.com',
-            twitter: 'oxygenna',
-            bio: 'We are a small creative web design agency \n who are passionate with our pixels.',
+            username: '',
+            location: '',
+            details: 'Mocked...todo!!',
             current: '',
             password: '',
             confirm: ''
@@ -68,8 +67,11 @@
         }
 
         function handleSuccess(result){
-            vm.user.name = result.data.Username;
+            vm.user.name = result.data.Name;
+            vm.user.username = result.data.Username;
             vm.user.email = result.data.Email;
+
+
         }
 
         function handleFaild(){

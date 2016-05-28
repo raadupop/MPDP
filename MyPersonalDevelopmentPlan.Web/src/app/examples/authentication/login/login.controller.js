@@ -6,7 +6,7 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($state, triSettings, AuthenticationService, $mdToast) {
+    function LoginController($state, triSettings, AuthenticationService, $mdToast, $filter) {
         var vm = this;
         vm.loginClick = loginClick;
         vm.socialLogins = [{
@@ -50,7 +50,7 @@
         function loginFailed(response) {
             $mdToast.show(
                 $mdToast.simple()
-                    .content($filter('translate')(response))
+                    .content('Login failed')
                     .position('bottom right')
                     .hideDelay(5000)
             );
