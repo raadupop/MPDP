@@ -1,0 +1,19 @@
+.goals-dashboard {
+  .status {
+    padding: 8px 14px;
+    border-radius: 6px;
+    min-width: 60px;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+  }
+  .status-Open {
+    background-color: #26C6DA;
+  }
+  .status-Closed {
+    background-color: #8BC34A;
+  }
+  .status-InProgress {
+    background-color: #FF9800;
+  }
+}

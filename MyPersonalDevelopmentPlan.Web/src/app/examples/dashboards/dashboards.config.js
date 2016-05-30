@@ -26,9 +26,9 @@
                 }
             }
         })
-        .state('triangular.admin-default.dashboard-general', {
-            url: '/dashboards/general',
-            templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html'
+        .state('triangular.admin-default.dashboard-2', {
+            url: '/dashboards/2',
+            templateUrl: 'app/examples/dashboards/2/dashboard-general-2.tmpl.html'
         })
         .state('triangular.admin-default.dashboard-analytics', {
             url: '/dashboards/analytics',
@@ -77,6 +77,16 @@
             templateUrl: 'app/examples/dashboards/dashboard-draggable.tmpl.html',
             controller: 'DashboardDraggableController',
             controllerAs: 'vm'
+        })
+        .state('triangular.admin-default.dashboard-general', {
+            url: '/dashboards/general',
+            views: {
+                '': {
+                    templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html',
+                    controller: 'DashboardGeneralController',
+                    controllerAs: 'vm'
+                }
+            }
         });
 
         triMenuProvider.addMenu({
@@ -85,12 +95,16 @@
             type: 'dropdown',
             priority: 1.1,
             children: [{
+                name: 'General',
+                state: 'triangular.admin-default.dashboard-general',
+                type: 'link'
+            },{
                 name: 'MENU.DASHBOARDS.ANALYTICS',
                 state: 'triangular.admin-default.dashboard-analytics',
                 type: 'link'
             },{
-                name: 'MENU.DASHBOARDS.GENERAL',
-                state: 'triangular.admin-default.dashboard-general',
+                name: 'General2',
+                state: 'triangular.admin-default.dashboard-2',
                 type: 'link'
             },{
                 name: 'MENU.DASHBOARDS.SALES',

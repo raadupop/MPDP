@@ -23,7 +23,7 @@
                 }
             },
             url: '/layouts/full-width',
-            templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html'
+            templateUrl: 'app/examples/dashboards/2/dashboard-2.tmpl.html'
         })
         .state('triangular.admin-default.layouts-example-tall-toolbar', {
             data: {
@@ -44,7 +44,7 @@
                 }
             },
             url: '/layouts/icon-menu',
-            templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html'
+            templateUrl: 'app/examples/dashboards/2/dashboard-2.tmpl.html'
         });
         triMenuProvider.addMenu({
             name: 'MENU.LAYOUTS.TITLE',
