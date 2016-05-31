@@ -85,6 +85,11 @@
                     templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html',
                     controller: 'DashboardGeneralController',
                     controllerAs: 'vm'
+                },
+                'belowContent': {
+                    templateUrl: 'app/examples/dashboards/general/fab-button.tmpl.html',
+                    controller: 'GoalsFabController',
+                    controllerAs: 'vm'
                 }
             }
         });

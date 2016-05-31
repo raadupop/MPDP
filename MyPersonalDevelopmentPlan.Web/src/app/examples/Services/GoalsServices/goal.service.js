@@ -13,19 +13,26 @@
         var service = {};
 
         service.getGoals = getGoals;
+        service.updateGoal = updateGoal;
 
         return service;
         ///
 
-        function getGoals(userId, success, failed){
+        function getGoals(userId, startDate, endDate, success, failed){
             var config = {
                 params: {
-                    userId: userId
+                    userId: userId,
+                    startDate: startDate,
+                    endDate: endDate
                 }
             };
 
             ApiWebService.get(ApiConfig + 'goal/getgoals', config, success, failed);
 
+        }
+
+        function updateGoal(goal, success, failed){
+            ApiWebService.put(ApiConfig + 'goal/update', goal, success, failed)
         }
     }
 

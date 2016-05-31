@@ -39,6 +39,21 @@
             </div>
         </tri-widget>
     </div>
+
+    <div layout="row" layout-xs="column" layout-margin dragula='"drag-analytics-container"'>
+        <tri-widget palette-background="triCyan:600" content-layout="column" content-layout-align="space-between center" content-padding>
+            <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0">{{vm.goalsResult.totalGoals}}</p>
+            <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10" translate>Total goals</p>
+        </tri-widget>
+        <tri-widget palette-background="triCyan:600" content-layout="column" content-layout-align="space-between center" content-padding>
+            <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0"> {{vm.openGoals}}</p>
+            <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10" translate>Open goals</p>
+        </tri-widget>
+        <tri-widget palette-background="triCyan:600" content-layout="column" content-layout-align="space-between center" content-padding>
+            <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0">{{vm.finishedGoals}}</p>
+            <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10" translate>Finished goals</p>
+        </tri-widget>
+    </div>
     <div layout="row" layout-xs="column" layout-margin>
         <tri-widget flex title="My goals" content-layout="column" content-layout-align="center">
             <md-data-table-container>
@@ -50,7 +65,6 @@
                         <th name="Status" order-by="Status"></th>
                         <th name="Effort estimation" order-by="Estimation"></th>
                         <th name="Remaining estimation" order-by="RemainingEstimates"></th>
-                        <th name="Nr. objectives" order-by="ObjectivesCount"></th>
                         <th name="Details"></th>
                     </tr>
                     </thead>
@@ -65,9 +79,8 @@
                         </td>
                         <td>{{::goal.Estimation | duration}}</td>
                         <td>{{::goal.RemainingEstimates | duration}}</td>
-                        <td>{{::goal.ObjectivesCount}}</td>
                         <td>
-                            <md-button ng-click="vm.openOrder(order, $event)" class="md-icon-button" aria-label="Open Order">
+                            <md-button ng-click="vm.openGoal(goal, $event)" class="md-icon-button" aria-label="Open Goal">
                                 <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
                             </md-button>
                         </td>
