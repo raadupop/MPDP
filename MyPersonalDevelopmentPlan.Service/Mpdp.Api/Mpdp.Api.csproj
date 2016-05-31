@@ -119,22 +119,30 @@
   <ItemGroup>
     <Compile Include="App_Start\AutofacWebapiConfig.cs" />
     <Compile Include="App_Start\Bootstrapper.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiBaseController.cs" />
     <Compile Include="Controllers\GoalController.cs" />
+    <Compile Include="Controllers\ObjectiveController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Extension\EntitiesExtension.cs" />
+    <Compile Include="Infrastructure\Binders\IsoTimeSpanModelBinder.cs" />
+    <Compile Include="Infrastructure\Converters\TimeSpanConverter.cs" />
+    <Compile Include="Infrastructure\Extension\AutoMapperExtension.cs" />
+    <Compile Include="Infrastructure\Extension\GoalEntitiesExtension.cs" />
+    <Compile Include="Infrastructure\Extension\ObjectiveEntitiesExtension.cs" />
     <Compile Include="Infrastructure\Extension\RequestMessageExtensions.cs" />
     <Compile Include="Infrastructure\Mappings\AutomapperConfiguration.cs" />
     <Compile Include="Infrastructure\Mappings\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Infrastructure\MessageHandlers\MpdpAuthHandler.cs" />
     <Compile Include="Infrastructure\Validators\AccountViewModelValidators.cs" />
     <Compile Include="Infrastructure\Validators\GoalViewModelvalidators.cs" />
+    <Compile Include="Infrastructure\Validators\ObjectiveViewModelValidators.cs" />
     <Compile Include="Models\GoalViewModel.cs" />
+    <Compile Include="Models\ObjectiveViewModel.cs" />
     <Compile Include="Models\UserProfileViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegistrationViewModel.cs" />

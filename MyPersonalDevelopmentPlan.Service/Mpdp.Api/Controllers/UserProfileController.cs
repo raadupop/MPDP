@@ -9,16 +9,18 @@ using Mpdp.Api.Models;
 using Mpdp.Data.Infrastructure;
 using Mpdp.Data.Repositories;
 using Mpdp.Entities;
+using Mpdp.Services.Abstract;
 
 namespace Mpdp.Api.Controllers
 {
   public class UserProfileController : ApiBaseController
   {
-    private readonly IEntityBaseRepository<User> _userRepository; 
+    private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
+    
 
-    public UserProfileController(IEntityBaseRepository<User> useRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
+    public UserProfileController(IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
     {
-      _userRepository = useRepository;
+      _userProfileRepository = userProfileRepository;
     }
 
     [HttpGet]
@@ -27,12 +29,12 @@ namespace Mpdp.Api.Controllers
       return CreateHttpResponse(request, () =>
       {
         HttpResponseMessage response = null;
-        var userProfile = _userRepository.FindBy(u => u.Username == username).FirstOrDefault();
+        var userProfile = _userProfileRepository.FindBy(u => u.User.Username == username).FirstOrDefault();
 
         if (userProfile != null)
         {
           // toDo Update Db migration with user profile
-          UserProfileViewModel userProfileVm = Mapper.Map<User, UserProfileViewModel>(userProfile);
+          UserProfileViewModel userProfileVm = Mapper.Map<UserProfile, UserProfileViewModel>(userProfile);
           response = request.CreateResponse(HttpStatusCode.OK, userProfileVm);
 
           return response;

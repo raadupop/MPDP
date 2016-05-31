@@ -42,6 +42,10 @@
       <HintPath>..\packages\MockData.0.0.6\lib\net40\MockData.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -59,6 +63,7 @@
     <Compile Include="Configuration\ObjectiveConfiguration.cs" />
     <Compile Include="Configuration\RoleConfiguration.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
+    <Compile Include="Configuration\UserProfileConfiguration.cs" />
     <Compile Include="Configuration\UserRoleConfiguration.cs" />
     <Compile Include="Configuration\WorkedLogConfiguration.cs" />
     <Compile Include="Extension\UserExtension.cs" />
@@ -70,6 +75,42 @@
     <Compile Include="Migrations\201605071621561_initial.cs" />
     <Compile Include="Migrations\201605071621561_initial.Designer.cs">
       <DependentUpon>201605071621561_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605260932457_EstimationUpdate.cs" />
+    <Compile Include="Migrations\201605260932457_EstimationUpdate.Designer.cs">
+      <DependentUpon>201605260932457_EstimationUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605261959499_UserProfileUpdate.cs" />
+    <Compile Include="Migrations\201605261959499_UserProfileUpdate.Designer.cs">
+      <DependentUpon>201605261959499_UserProfileUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605271010185_UserProfileUpdate2.cs" />
+    <Compile Include="Migrations\201605271010185_UserProfileUpdate2.Designer.cs">
+      <DependentUpon>201605271010185_UserProfileUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605271220332_UserProfileUpdateOTO.cs" />
+    <Compile Include="Migrations\201605271220332_UserProfileUpdateOTO.Designer.cs">
+      <DependentUpon>201605271220332_UserProfileUpdateOTO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605271401206_GoalAddUserProfile.cs" />
+    <Compile Include="Migrations\201605271401206_GoalAddUserProfile.Designer.cs">
+      <DependentUpon>201605271401206_GoalAddUserProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605272321186_EstimationTicks.cs" />
+    <Compile Include="Migrations\201605272321186_EstimationTicks.Designer.cs">
+      <DependentUpon>201605272321186_EstimationTicks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605291033151_EstimationTicksForObjective.cs" />
+    <Compile Include="Migrations\201605291033151_EstimationTicksForObjective.Designer.cs">
+      <DependentUpon>201605291033151_EstimationTicksForObjective.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605291537515_EstimationTypo.cs" />
+    <Compile Include="Migrations\201605291537515_EstimationTypo.Designer.cs">
+      <DependentUpon>201605291537515_EstimationTypo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605291544063_EstimationTypo2.cs" />
+    <Compile Include="Migrations\201605291544063_EstimationTypo2.Designer.cs">
+      <DependentUpon>201605291544063_EstimationTypo2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MpdpContext.cs" />
@@ -96,6 +137,33 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605071621561_initial.resx">
       <DependentUpon>201605071621561_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605260932457_EstimationUpdate.resx">
+      <DependentUpon>201605260932457_EstimationUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605261959499_UserProfileUpdate.resx">
+      <DependentUpon>201605261959499_UserProfileUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605271010185_UserProfileUpdate2.resx">
+      <DependentUpon>201605271010185_UserProfileUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605271220332_UserProfileUpdateOTO.resx">
+      <DependentUpon>201605271220332_UserProfileUpdateOTO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605271401206_GoalAddUserProfile.resx">
+      <DependentUpon>201605271401206_GoalAddUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605272321186_EstimationTicks.resx">
+      <DependentUpon>201605272321186_EstimationTicks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605291033151_EstimationTicksForObjective.resx">
+      <DependentUpon>201605291033151_EstimationTicksForObjective.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605291537515_EstimationTypo.resx">
+      <DependentUpon>201605291537515_EstimationTypo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605291544063_EstimationTypo2.resx">
+      <DependentUpon>201605291544063_EstimationTypo2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

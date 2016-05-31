@@ -10,16 +10,19 @@ using Mpdp.Api.Models;
 using Mpdp.Data.Infrastructure;
 using Mpdp.Data.Repositories;
 using Mpdp.Entities;
+using Mpdp.Services.Abstract;
 
 namespace Mpdp.Api.Controllers
 {
   public class GoalController : ApiBaseController
   {
     private readonly IEntityBaseRepository<Goal> _goalRepository;
+    private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
 
-    public GoalController(IEntityBaseRepository<Goal> goalRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
+    public GoalController(IEntityBaseRepository<Goal> goalRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
     {
       _goalRepository = goalRepository;
+      _userProfileRepository = userProfileRepository;
     }
 
     [HttpPost]
@@ -36,13 +39,78 @@ namespace Mpdp.Api.Controllers
         else
         {
           Goal newGoal = new Goal();
-          newGoal.UpdateGoal(goal);
+          
+          newGoal.CreateGoal(goal);
+
+          //Asign goal to a user
+          var userProfile = _userProfileRepository.GetSingle(goal.UserProfileId);
+          newGoal.UserProfile = userProfile;
 
           _goalRepository.Add(newGoal);
           _unitOfWork.Commit();
 
           goal = Mapper.Map<Goal, GoalViewModel>(newGoal);
           response = request.CreateResponse(HttpStatusCode.Created, goal);
+        }
+
+        return response;
+      });
+    }
+
+    [HttpGet]
+    [Route("")]
+    public HttpResponseMessage GetGoals(HttpRequestMessage request, int userId, DateTime? startDate, DateTime? endDate)
+    {
+      return CreateHttpResponse(request, () =>
+      {
+        HttpResponseMessage response;
+        
+          var userProfile = _userProfileRepository.GetSingle(userId);
+          if (userProfile == null)
+          {
+            response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid user profile id");
+          }
+          else
+          {
+            var userGoals = _goalRepository.GetAll().Where(g => g.UserProfile.Id == userId && g.DateCreated > startDate && g.DateCreated < endDate);
+            IEnumerable<GoalViewModel> goalsVm = Mapper.Map<IEnumerable<Goal>, IEnumerable<GoalViewModel>>(userGoals);
+
+            var goalViewModels = goalsVm as IList<GoalViewModel> ?? goalsVm.ToList();
+            response = request.CreateResponse(HttpStatusCode.OK, new { goals = goalViewModels, goalsCount = goalViewModels.Count() });
+          }
+   
+        return response;
+      });
+    }
+
+    //todo security improvements about the cross user update;
+    //todo throw 404 when goal isn't specified correct
+    [HttpPut]
+    [Route("update")]
+    public HttpResponseMessage Update(HttpRequestMessage request, GoalViewModel goal)
+    {
+      return CreateHttpResponse(request, () =>
+      {
+        HttpResponseMessage response;
+
+        if (!ModelState.IsValid)
+        {
+          response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid goal specification");
+        }
+        else
+        {
+          Goal goalToUpdate = new Goal();
+          goalToUpdate.UpdateGoal(goal);
+
+          //todo (this is temporary), change the business for the user mapping problem in userProfile
+          var userProfile = _userProfileRepository.GetSingle(goal.UserProfileId);
+          goalToUpdate.UserProfile = userProfile;
+
+          _goalRepository.Edit(goalToUpdate);
+          _unitOfWork.Commit();
+
+          GoalViewModel goalUpdated = Mapper.Map<Goal, GoalViewModel>(goalToUpdate);
+          response = request.CreateResponse(HttpStatusCode.Created, goalUpdated);
         }
 
         return response;

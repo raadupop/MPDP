@@ -18,16 +18,18 @@ namespace Mpdp.Services
     #region Variables
     private readonly IEntityBaseRepository<User> _userRepository;
     private readonly IEntityBaseRepository<Role> _roleRepository;
+    private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
     private readonly IEntityBaseRepository<UserRole> _userRoleRepository;
     private readonly IEncryptionService _encryptionService;
     private readonly IUnitOfWork _unitOfWork;
     #endregion
 
-    public MembershipService(IEntityBaseRepository<User> userRepository, IEntityBaseRepository<Role> roleRepository,
+    public MembershipService(IEntityBaseRepository<User> userRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Role> roleRepository,
        IEntityBaseRepository<UserRole> userRoleRepository, IEncryptionService encryptionService, IUnitOfWork unitOfWork)
     {
       _userRepository = userRepository;
       _roleRepository = roleRepository;
+      _userProfileRepository = userProfileRepository;
       _userRoleRepository = userRoleRepository;
       _encryptionService = encryptionService;
       _unitOfWork = unitOfWork;
@@ -72,7 +74,7 @@ namespace Mpdp.Services
         Email = email,
         IsLocked = false,
         HashedPassword = _encryptionService.EncryptPassword(password, passwordSalt),
-        DateCreated = DateTime.Now
+        DateCreated = DateTime.Now,    
       };
 
       _userRepository.Add(user);

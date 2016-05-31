@@ -16,10 +16,14 @@ namespace Mpdp.Api.Controllers
   public class AccountController : ApiBaseController
   {
     private readonly IMembershipService _membershipService;
+    private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
+    private readonly IEntityBaseRepository<User> _userRepository;
 
-    public AccountController(IMembershipService membershipService, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
+    public AccountController(IMembershipService membershipService, IEntityBaseRepository<User> userRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
     {
       _membershipService = membershipService;
+      _userProfileRepository = userProfileRepository;
+      _userRepository = userRepository;
     }
 
     [AllowAnonymous]
@@ -36,7 +40,7 @@ namespace Mpdp.Api.Controllers
 
           if (_userContext.User != null)
           {
-            response = request.CreateResponse(HttpStatusCode.OK, new { success = true, userId = _userContext.User.Id });
+            response = request.CreateResponse(HttpStatusCode.OK, new { success = true, userId = _userContext.User.UserProfile.Id });
           }
           else
           {
@@ -68,6 +72,14 @@ namespace Mpdp.Api.Controllers
 
          if (_user != null)
          {
+           var _userProfile = new UserProfile() {Name = user.Name, User = _user};
+           _userProfileRepository.Add(_userProfile);
+           _unitOfWork.Commit();
+
+           _user.UserProfile = _userProfile;
+           _userRepository.Edit(_user);
+           _unitOfWork.Commit();
+
            response = request.CreateResponse(HttpStatusCode.OK, new { success = true });
          }
          else

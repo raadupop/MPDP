@@ -100,7 +100,7 @@
             type: 'dropdown',
             priority: 1.1,
             children: [{
-                name: 'General',
+                name: 'My goals',
                 state: 'triangular.admin-default.dashboard-general',
                 type: 'link'
             },{

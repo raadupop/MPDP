@@ -11,10 +11,8 @@ namespace Mpdp.Data.Configuration
   {
     public GoalConfiguration()
     {
-      Property(g => g.UserId).IsRequired();
+      Property(g => g.UserProfileId).IsRequired();
       Property(g => g.GoalStatus).IsRequired();
-      Property(g => g.DateCreated).IsRequired();
-      Property(g => g.Estimation).IsRequired();
       Property(g => g.Name).IsRequired();
 
       HasMany(g => g.ObjectiveLIst).WithRequired().HasForeignKey(o => o.GoalId);

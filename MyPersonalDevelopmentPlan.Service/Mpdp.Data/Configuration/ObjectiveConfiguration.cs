@@ -13,7 +13,6 @@ namespace Mpdp.Data.Configuration
     {
       Property(o => o.GoalId).IsRequired();
       Property(o => o.DateCreated).IsRequired();
-      Property(o => o.Estimation).IsRequired();
       Property(o => o.Title).IsRequired();
       Property(o => o.ObjectiveRank).IsRequired();
       Property(o => o.ObjectiveStatus).IsRequired();

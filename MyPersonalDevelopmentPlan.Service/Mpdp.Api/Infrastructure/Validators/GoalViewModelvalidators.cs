@@ -21,7 +21,7 @@ namespace Mpdp.Api.Infrastructure.Validators
           .WithMessage("Invalid estimation");
         RuleFor(g => g.GoalStatus).NotEmpty()
           .WithMessage("Invalid goal status");
-        RuleFor(g => g.User).NotEmpty()
+        RuleFor(g => g.UserProfileId).NotEmpty()
           .WithMessage("Invalid user");
         RuleFor(g => g.Id).NotEmpty()
           .WithMessage("Invalid userId");

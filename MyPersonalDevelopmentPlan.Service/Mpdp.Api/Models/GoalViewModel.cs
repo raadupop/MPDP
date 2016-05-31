@@ -7,6 +7,8 @@ using FluentValidation.Results;
 using Mpdp.Api.Infrastructure.Validators;
 using System.ComponentModel.DataAnnotations;
 using Mpdp.Entities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using ValidationContext = FluentValidation.ValidationContext;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
@@ -14,24 +16,31 @@ namespace Mpdp.Api.Models
 {
   public class GoalViewModel
   {
-    public GoalViewModel(IEnumerable<Objective> objectiveLIst)
-    {
-      ObjectiveLIst = objectiveLIst;
-    }
-
     public int Id { get; set; }
-    public int UserId { get; set; }
-    public virtual User User { get; set; }
+
+    public int UserProfileId { get; set; }
+
+    public string Username { get; set; }
+
     public string Name { get; set; }
+
     public DateTime DateCreated { get; set; }
+
     public string Description { get; set; }
+
     public decimal Progress { get; set; }
-    public DateTime Estimation { get; set; }
-    public DateTime RemaniningEstimates { get; set; }
+
+    public TimeSpan Estimation { get; set; }
+
+    public TimeSpan RemainingEstimates { get; set; }
+
+    [JsonConverter(typeof(StringEnumConverter))]
     public Status GoalStatus { get; set; }
 
     public int ObjectivesCount { get; set; }
-    public virtual IEnumerable<Objective> ObjectiveLIst { get; private set; }
+
+    public UserProfileViewModel UserProfile { get; set; }
+
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
