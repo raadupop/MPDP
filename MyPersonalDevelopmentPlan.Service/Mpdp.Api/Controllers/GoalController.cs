@@ -17,12 +17,14 @@ namespace Mpdp.Api.Controllers
   public class GoalController : ApiBaseController
   {
     private readonly IEntityBaseRepository<Goal> _goalRepository;
+    private readonly IEntityBaseRepository<Objective> _objectiveRepository; 
     private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
 
-    public GoalController(IEntityBaseRepository<Goal> goalRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
+    public GoalController(IEntityBaseRepository<Objective> objectiveRepository, IEntityBaseRepository<Goal> goalRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
     {
       _goalRepository = goalRepository;
       _userProfileRepository = userProfileRepository;
+      _objectiveRepository = objectiveRepository;
     }
 
     [HttpPost]
@@ -111,6 +113,49 @@ namespace Mpdp.Api.Controllers
 
           GoalViewModel goalUpdated = Mapper.Map<Goal, GoalViewModel>(goalToUpdate);
           response = request.CreateResponse(HttpStatusCode.Created, goalUpdated);
+        }
+
+        return response;
+      });
+    }
+
+    [HttpPost]
+    [Route ("createobjective")]
+    public HttpResponseMessage CreateObjective(HttpRequestMessage request, ObjectiveViewModel objectiveVm)
+    {
+      return CreateHttpResponse(request, () =>
+      {
+        HttpResponseMessage response;
+
+        if (!ModelState.IsValid)
+        {
+          response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        }
+        else
+        {
+          var goal = _goalRepository.GetSingle(objectiveVm.GoalId);
+
+          if (goal == null)
+          {
+            response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid goalId");
+          }
+          else
+          {
+            Objective newObjective = new Objective();
+            newObjective.CreateObjective(objectiveVm);
+            newObjective.Goal = goal;
+
+            _objectiveRepository.Add(newObjective);
+            _unitOfWork.Commit();
+
+            //Update the goal 
+            goal.Objectives.Add(newObjective);
+            _goalRepository.Edit(goal);
+            _unitOfWork.Commit();
+
+            objectiveVm = Mapper.Map<Objective, ObjectiveViewModel>(newObjective);
+            response = request.CreateResponse(HttpStatusCode.OK, objectiveVm);
+          }
         }
 
         return response;

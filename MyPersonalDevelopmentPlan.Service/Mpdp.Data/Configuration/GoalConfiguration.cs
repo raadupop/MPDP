@@ -15,7 +15,7 @@ namespace Mpdp.Data.Configuration
       Property(g => g.GoalStatus).IsRequired();
       Property(g => g.Name).IsRequired();
 
-      HasMany(g => g.ObjectiveLIst).WithRequired().HasForeignKey(o => o.GoalId);
+      HasMany(g => g.Objectives).WithRequired().HasForeignKey(o => o.GoalId);
     }
   }
 }

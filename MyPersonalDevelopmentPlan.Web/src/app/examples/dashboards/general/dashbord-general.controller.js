@@ -14,8 +14,8 @@
         var vm = this;
 
         vm.dateRange = {
-            start: moment().startOf('month'),
-            end: moment().endOf('month')
+            start: moment().startOf('year'),
+            end: moment().endOf('year')
         };
 
         vm.query = {

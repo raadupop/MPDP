@@ -112,6 +112,10 @@
     <Compile Include="Migrations\201605291544063_EstimationTypo2.Designer.cs">
       <DependentUpon>201605291544063_EstimationTypo2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606012351174_typo.cs" />
+    <Compile Include="Migrations\201606012351174_typo.Designer.cs">
+      <DependentUpon>201606012351174_typo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MpdpContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -164,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605291544063_EstimationTypo2.resx">
       <DependentUpon>201605291544063_EstimationTypo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606012351174_typo.resx">
+      <DependentUpon>201606012351174_typo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

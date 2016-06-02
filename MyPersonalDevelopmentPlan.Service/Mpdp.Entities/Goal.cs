@@ -11,7 +11,7 @@ namespace Mpdp.Entities
   {
     public Goal()
     {
-      ObjectiveLIst = new List<Objective>();
+      Objectives = new List<Objective>();
     }
 
     public int Id { get; set; }
@@ -26,7 +26,7 @@ namespace Mpdp.Entities
     public Int64 EstimationTicks { get; set; }
     public Int64 RemainingEstimatesTicks { get; set; }
 
-    public virtual ICollection<Objective> ObjectiveLIst { get; set; }
+    public virtual ICollection<Objective> Objectives { get; set; }
 
     [NotMapped]
     public TimeSpan Estimation

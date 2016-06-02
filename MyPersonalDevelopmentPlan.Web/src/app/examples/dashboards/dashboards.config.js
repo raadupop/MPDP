@@ -92,7 +92,28 @@
                     controllerAs: 'vm'
                 }
             }
+        })
+        .state('triangular.admin-default.dashboard-objectives', {
+            url: '/dashboards/objectives',
+            views: {
+              '':  {
+                  templateUrl: 'app/examples/dashboards/objectives/objectives.tmpl.html',
+                  controller: 'DashboardObjectivesController',
+                  controllerAs: 'vm'
+              },
+                'belowContent': {
+                    templateUrl: 'app/examples/dashboards/objectives/fab-button.tmpl.html',
+                    controller: 'ObjectiveFabController',
+                    controllerAs: 'vm'
+                }
+
+
+            }
+
+
         });
+
+
 
         triMenuProvider.addMenu({
             name: 'MENU.DASHBOARDS.DASHBOARDS',
@@ -102,6 +123,10 @@
             children: [{
                 name: 'My goals',
                 state: 'triangular.admin-default.dashboard-general',
+                type: 'link'
+            },{
+                name: 'My objectives',
+                state: 'triangular.admin-default.dashboard-objectives',
                 type: 'link'
             },{
                 name: 'MENU.DASHBOARDS.ANALYTICS',
@@ -133,6 +158,5 @@
                 type: 'link'
             }]
         });
-
     }
 })();

@@ -41,6 +41,8 @@ namespace Mpdp.Api.Models
 
     public UserProfileViewModel UserProfile { get; set; }
 
+    public IEnumerable<ObjectiveViewModel> Objectives { get; set; }  
+
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

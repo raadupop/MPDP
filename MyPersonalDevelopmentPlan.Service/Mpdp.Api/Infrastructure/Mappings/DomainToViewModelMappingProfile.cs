@@ -23,7 +23,7 @@ namespace Mpdp.Api.Infrastructure.Mappings
         .ForMember(vm => vm.Email, map => map.MapFrom(u => u.User.Email));
 
       Mapper.CreateMap<Goal, GoalViewModel>()
-        .ForMember(vm => vm.ObjectivesCount, map => map.MapFrom(g => g.ObjectiveLIst.Count))
+        .ForMember(vm => vm.ObjectivesCount, map => map.MapFrom(g => g.Objectives.Count))
         .ForMember(vm => vm.Username, map => map.MapFrom(g => g.UserProfile.User.Username))
         .ForSourceMember(g => g.EstimationTicks, vm => vm.Ignore())
         .ForSourceMember(g => g.RemainingEstimatesTicks, vm => vm.Ignore());

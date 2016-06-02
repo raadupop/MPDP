@@ -9,7 +9,7 @@ namespace Mpdp.Entities
   public class Note : IEntityBase
   {
     public int Id { get; set; }
-    public int ObjectiveId { get; set; }
+    public int ObjectiveId { get; set; }  
     public string Title { get; set; }
     public string Content { get; set; }
 

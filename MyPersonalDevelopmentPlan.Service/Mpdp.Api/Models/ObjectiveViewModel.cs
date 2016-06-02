@@ -40,8 +40,6 @@ namespace Mpdp.Api.Models
     [JsonConverter(typeof(StringEnumConverter))]
     public Status ObjectiveStatus { get; set; }
 
-    public GoalViewModel Goal { get; set; }
-
     public IEnumerable<ValidationResult> Validate(ValidationContext validaitonContext)
     {
       var validator = new ObjectiveViewModelValidators.ObjectiveViewModelValidator();

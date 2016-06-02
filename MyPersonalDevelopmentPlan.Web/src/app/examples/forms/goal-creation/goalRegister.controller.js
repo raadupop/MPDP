@@ -36,6 +36,7 @@
             ApiWebService.post(ApiConfig + 'goal/creategoal', goalToSend, goalSucceded, goalFailed)
         }
 
+        //todo make own service for this
         function estimationTimeSpanWrapper(estimation){
 
             var mrx = new RegExp(/([0-9][0-9]?)[ ]?m/);
