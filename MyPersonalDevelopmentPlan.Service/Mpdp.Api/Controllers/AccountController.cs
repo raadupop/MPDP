@@ -36,11 +36,23 @@ namespace Mpdp.Api.Controllers
 
         if (ModelState.IsValid)
         {
-          MembershipContext _userContext = _membershipService.ValidateUser(user.Username, user.Password);
+          MembershipContext userContext = _membershipService.ValidateUser(user.Username, user.Password);
 
-          if (_userContext.User != null)
+          if (userContext.User != null)
           {
-            response = request.CreateResponse(HttpStatusCode.OK, new { success = true, userId = _userContext.User.UserProfile.Id });
+            var firstOrDefault = _userProfileRepository.FindBy(u => u.UserId == userContext.User.Id).FirstOrDefault();
+            if (firstOrDefault != null)
+            {
+              int userProfileId = firstOrDefault.Id;
+
+              //Todo rename on the client userId to userProfileId after applying this change here
+              response = request.CreateResponse(HttpStatusCode.OK, new {success = true, userId = userProfileId});
+
+            }
+            else
+            {
+              response = request.CreateResponse(HttpStatusCode.BadRequest, new {success = false});
+            }
           }
           else
           {
@@ -72,13 +84,13 @@ namespace Mpdp.Api.Controllers
 
          if (_user != null)
          {
-           var _userProfile = new UserProfile() {Name = user.Name, User = _user};
-           _userProfileRepository.Add(_userProfile);
+           _userRepository.Add(_user);
            _unitOfWork.Commit();
 
-           _user.UserProfile = _userProfile;
-           _userRepository.Edit(_user);
+           var userProfile = new UserProfile() {Name = user.Name, User = _user};
+           _userProfileRepository.Add(userProfile);
            _unitOfWork.Commit();
+
 
            response = request.CreateResponse(HttpStatusCode.OK, new { success = true });
          }

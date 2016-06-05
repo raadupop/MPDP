@@ -14,6 +14,7 @@
 
         service.getGoals = getGoals;
         service.updateGoal = updateGoal;
+        service.updateObjective = updateObjective;
         service.addObjective = addObjective;
         return service;
         ///
@@ -32,7 +33,11 @@
         }
 
         function updateGoal(goal, success, failed){
-            ApiWebService.put(ApiConfig + 'goal/update', goal, success, failed)
+            ApiWebService.put(ApiConfig + 'goal/update', goal, success, failed);
+        }
+
+        function updateObjective(objective, success, failed){
+            ApiWebService.put(ApiConfig + 'goal/updateobjective', objective, success, failed);
         }
 
         function addObjective(objective, success, failed){

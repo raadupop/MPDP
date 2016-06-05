@@ -11,7 +11,6 @@ namespace Mpdp.Entities
   {
     public Objective()
     {
-      ObjectiveNotes = new List<Note>();
       WorkedLogs = new List<WorkedLog>();
     }
 
@@ -28,7 +27,6 @@ namespace Mpdp.Entities
     public Status ObjectiveStatus { get; set; }
 
     public virtual Goal Goal { get; set; }
-    public virtual ICollection<Note> ObjectiveNotes { get; set; }
     public virtual ICollection<WorkedLog> WorkedLogs { get; set; }
 
     [NotMapped]

@@ -11,9 +11,9 @@ namespace Mpdp.Data.Configuration
   {
     public NoteConfiguration()
     {
-      Property(n => n.ObjectiveId).IsRequired();
-      Property(n => n.Title).IsRequired();
-      Property(n => n.Content).IsRequired();
+      Property(n => n.Name).IsRequired();
+      Property(n => n.Priority).IsRequired();
+      HasRequired(n => n.UserProfile).WithMany().HasForeignKey(n => n.UserProfileId);
     }
 
   }

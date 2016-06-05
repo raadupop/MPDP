@@ -23,8 +23,6 @@ namespace Mpdp.Entities
     public string Salt { get; set; }
     public bool IsLocked { get; set; }
     public DateTime DateCreated { get; set; }
-    public int? UserProfileId { get; set; }
-    public virtual UserProfile UserProfile { get; set; }
     public virtual ICollection<UserRole> UserRoles { get; set; }
 
   }

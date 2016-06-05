@@ -17,7 +17,6 @@ namespace Mpdp.Data.Configuration
       Property(o => o.ObjectiveRank).IsRequired();
       Property(o => o.ObjectiveStatus).IsRequired();
 
-      HasMany(o => o.ObjectiveNotes).WithRequired().HasForeignKey(n => n.ObjectiveId);
       HasMany(g => g.WorkedLogs).WithRequired().HasForeignKey(w => w.ObjectiveId);
     } 
   }

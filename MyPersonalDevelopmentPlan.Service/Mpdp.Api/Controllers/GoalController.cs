@@ -161,5 +161,33 @@ namespace Mpdp.Api.Controllers
         return response;
       });
     }
+
+    [HttpPut]
+    [Route("updateobjective")]
+    public HttpResponseMessage UpdateObjective(HttpRequestMessage request, ObjectiveViewModel objectiveVm)
+    {
+      return CreateHttpResponse(request, () =>
+      {
+        HttpResponseMessage response;
+
+        if (!ModelState.IsValid)
+        {
+          response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        }
+        else
+        {
+          var objective = Mapper.Map<ObjectiveViewModel, Objective>(objectiveVm);
+
+          _objectiveRepository.Edit(objective);
+          _unitOfWork.Commit();
+
+          response = request.CreateResponse(HttpStatusCode.Created, objectiveVm);
+        }
+
+        return response;
+
+      });
+    }
+
   }
 }

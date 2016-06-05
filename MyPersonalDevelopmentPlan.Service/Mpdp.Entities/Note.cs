@@ -9,10 +9,9 @@ namespace Mpdp.Entities
   public class Note : IEntityBase
   {
     public int Id { get; set; }
-    public int ObjectiveId { get; set; }  
-    public string Title { get; set; }
-    public string Content { get; set; }
-
-    public virtual Objective Objective { get; set; }
+    public string Name { get; set; }
+    public int UserProfileId { get; set; }
+    public virtual UserProfile UserProfile { get; set; }
+    public Rank Priority { get; set; }
   }
 }

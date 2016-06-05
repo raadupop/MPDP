@@ -95,6 +95,7 @@
         })
         .state('triangular.admin-default.dashboard-objectives', {
             url: '/dashboards/objectives',
+            cache: false,
             views: {
               '':  {
                   templateUrl: 'app/examples/dashboards/objectives/objectives.tmpl.html',

@@ -12,7 +12,7 @@
 
         <div layout="row" layout-align="space-around center">
             <md-input-container>
-                <label>Search icons</label>
+                <label>Find a goal</label>
                 <input type="text" ng-model="searchGoal">
             </md-input-container>
             <md-select placeholder="Sort by status" ng-model="status">
@@ -23,7 +23,7 @@
         <div layout="row" class="md-whiteframe-z1">
             <md-content  layout="column">
                 <md-list>
-                    <md-list-item class="md-2-line" ng-repeat="goal in vm.goalsResult.goals" ng-click="vm.selectGoal(goal)">
+                    <md-list-item class="md-2-line" ng-repeat="goal in vm.goalsResult.goals" ng-click="vm.selectGoal(goal)" ng-class="{sel: goal == vm.goalSelected}">
                         <div class="md-list-item-text">
                             <h3>{{::goal.Name}}</h3>
                             <h4>{{::goal.GoalStatus}}</h4>
@@ -32,8 +32,10 @@
                 </md-list>
             </md-content>
             <div class="objectives-display" layout="column" flex>
-                <p layout-align="center" ng-show="vm.goalSelected == null">Select a goal from the list on the left</p>
-                <div layout="row" layout-md="column">
+                <div layout="row" layout-align="space-around center" class="margin-top-50" ng-show="vm.goalSelected == null">
+                    <p>Select a goal from the list on the left</p>
+                </div>
+                <div layout="row" ng-show="vm.goalSelected !== null"layout-md="column" cache-view="false">
                     <tri-widget flex title="Goal objectives" content-layout="column">
                         <md-data-table-container>
                             <table md-data-table class="md-data-table" layout-align="space-around center" md-progress="vm.deferred">
@@ -61,7 +63,7 @@
                                          </span>
                                     </td>
                                     <td>
-                                        <md-button ng-click="vm.openGoal(goal, $event)" class="md-icon-button" aria-label="Open Goal">
+                                        <md-button ng-click="vm.openObjective(objective, $event)" class="md-icon-button" aria-label="Open Goal">
                                             <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
                                         </md-button>
                                     </td>
@@ -76,21 +78,3 @@
         </div>
     </div>
 </div>
-<!--<div class="objectives-display" layout="column" flex>-->
-    <!--<md-tabs class="example-tabs-nopadding" md-dynamic-height md-border-bottom>-->
-        <!--<md-tab label="General Details">-->
-            <!--<md-content class="md-padding">-->
-                <!--<div layout="row" layout-fill margin-top-20  layout-padded>-->
-                    <!--<p ng-show="vm.goalSelected == null">Select a goal from the list on the left</p>-->
-                <!--</div>-->
-            <!--</md-content>-->
-        <!--</md-tab>-->
-        <!--<md-tab label="Objective Update">-->
-            <!--<md-content class="md-padding">-->
-                <!--<div layout="row" layout-fill margin-top-20 layout-padded>-->
-                    <!--<p ng-show="vm.goalSelected == null">Select a goal from the list on the left</p>-->
-                <!--</div>-->
-            <!--</md-content>-->
-        <!--</md-tab>-->
-    <!--</md-tabs>-->
-<!--</div>-->

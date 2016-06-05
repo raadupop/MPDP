@@ -137,6 +137,7 @@
     <Compile Include="Infrastructure\Extension\RequestMessageExtensions.cs" />
     <Compile Include="Infrastructure\Mappings\AutomapperConfiguration.cs" />
     <Compile Include="Infrastructure\Mappings\DomainToViewModelMappingProfile.cs" />
+    <Compile Include="Infrastructure\Mappings\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="Infrastructure\MessageHandlers\MpdpAuthHandler.cs" />
     <Compile Include="Infrastructure\Validators\AccountViewModelValidators.cs" />
     <Compile Include="Infrastructure\Validators\GoalViewModelvalidators.cs" />

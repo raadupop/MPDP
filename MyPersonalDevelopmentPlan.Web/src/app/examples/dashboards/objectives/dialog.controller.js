@@ -15,7 +15,7 @@
             title: '',
             description: '',
             estimation: '',
-            ObjectiveRank: ''
+            objectiveRank: ''
         };
 
         /////////////////////////

@@ -16,10 +16,11 @@
 
         vm.query = {
             goals: 'date',
-            limit: 5,
+            limit: 8,
             page: 1
         };
 
+        vm.openObjective = openObjective;
 
         vm.getGoals = getGoals;
         vm.goalStatus = ['open', 'inProgress', 'done'];
@@ -52,6 +53,40 @@
                 );
             }
         });
+
+        function openObjective(objective, $event)
+        {
+            setTimeout(function () {
+                $scope.$apply(function () {
+                    $scope.message = "Timeout called!";
+                });
+            }, 2000);
+            $mdDialog.show({
+                templateUrl: 'app/examples/dashboards/objectives/objective-view-dialog.tmpl.html',
+                targetEvent: $event,
+                controller: 'ObjectiveViewController',
+                controllerAs: 'vm',
+                locals: {
+                    objective: angular.copy(objective)
+                }
+            })
+            .then(function(objective) {
+                for(var i =  0; i <= vm.goalSelected.Objectives.length; i++)
+                {
+                    if(vm.goalSelected.Objectives[i].Id === objective.Id)
+                    {
+                        vm.goalSelected.Objectives[i] = objective;
+                    }
+                }
+                $mdToast.show(
+                    $mdToast.simple()
+                        .content("Please select a goal first.")
+                        .position('bottom right')
+                        .hideDelay(2000)
+                );
+            });
+        }
+
 
 
         function getGoals(){

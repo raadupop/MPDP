@@ -17,7 +17,6 @@ namespace Mpdp.Data.Configuration
       Property(u => u.Salt).IsRequired().HasMaxLength(200);
       Property(u => u.IsLocked).IsRequired();
       Property(u => u.DateCreated);
-      HasOptional(u => u.UserProfile).WithMany().HasForeignKey(u => u.UserProfileId);
     }
   }
 }
