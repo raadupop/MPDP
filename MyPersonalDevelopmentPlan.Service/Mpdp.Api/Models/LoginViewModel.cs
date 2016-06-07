@@ -9,13 +9,13 @@ using ValidationContext = FluentValidation.ValidationContext;
 
 namespace Mpdp.Api.Models
 {
-  public class LoginViewModel
+  public class LoginViewModel : IValidatableObject
   {
     public int UserId { get; set; }
     public string Username { get; set; }
     public string Password { get; set; }
 
-    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    public IEnumerable<ValidationResult> Validate(System.ComponentModel.DataAnnotations.ValidationContext validationContext)
     {
       var validator = new AccountViewModelValidators.LoginViewModelValidator();
       var result = validator.Validate(this);

@@ -16,6 +16,7 @@
         service.updateGoal = updateGoal;
         service.updateObjective = updateObjective;
         service.addObjective = addObjective;
+        service.saveWorkedLog = saveWorkedLog;
         return service;
         ///
 
@@ -41,35 +42,40 @@
         }
 
         function addObjective(objective, success, failed){
-            estimationTimeSpanWrapper(objective)
+            objective.estimation = estimationTimeSpanWrapper(objective.estimation);
             ApiWebService.post(ApiConfig + 'goal/createobjective', objective, success, failed);
+        }
+
+        function saveWorkedLog(woorkedLod, success, failed){
+            woorkedLod.Duration = estimationTimeSpanWrapper(woorkedLod.Duration);
+            ApiWebService.post(ApiConfig + 'goal/addworkedlog', woorkedLod, success, failed);
         }
 
 
         //todo make own service for this
-        function estimationTimeSpanWrapper(objective){
+        function estimationTimeSpanWrapper(duration){
 
             var mrx = new RegExp(/([0-9][0-9]?)[ ]?m/);
             var hrx = new RegExp(/([0-9][0-9]?)[ ]?h/);
-            var drx = new RegExp(/([0-9])[ ]?d/);
+            var drx = new RegExp(/([0-9][0-9]?)[ ]?d/);
 
             var days = 0;
             var hours = 0;
             var minutes = 0;
 
-            if (mrx.test(objective.estimation)) {
-                minutes = mrx.exec(objective.estimation)[1];
+            if (mrx.test(duration)) {
+                minutes = mrx.exec(duration)[1];
             }
-            if (hrx.test(objective.estimation)) {
-                hours = hrx.exec(objective.estimation)[1];
+            if (hrx.test(duration)) {
+                hours = hrx.exec(duration)[1];
             }
-            if (drx.test(objective.estimation)) {
-                days = drx.exec(objective.estimation)[1];
+            if (drx.test(duration)) {
+                days = drx.exec(duration)[1];
             }
 
-            objective.estimation = moment.duration(days + '.'  + hours + ':' + '' + minutes);
+            duration = moment.duration(days + '.'  + hours + ':' + '' + minutes);
 
-            return objective;
+            return duration;
         }
     }
 

@@ -14,7 +14,7 @@ using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace Mpdp.Api.Models
 {
-  public class GoalViewModel
+  public class GoalViewModel 
   {
     public int Id { get; set; }
 

@@ -12,7 +12,6 @@ namespace Mpdp.Data.Configuration
     public WorkedLogConfiguration()
     {
       Property(w => w.ObjectiveId).IsRequired();
-      Property(w => w.TimeWorked).IsRequired();
       Property(w => w.LogDate).IsRequired();
     }
   }

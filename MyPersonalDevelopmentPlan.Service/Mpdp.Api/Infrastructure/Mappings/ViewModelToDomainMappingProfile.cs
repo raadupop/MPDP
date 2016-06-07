@@ -18,6 +18,8 @@ namespace Mpdp.Api.Infrastructure.Mappings
     protected override void Configure()
     {
       Mapper.CreateMap<ObjectiveViewModel, Objective>();
+
+      Mapper.CreateMap<WorkedLogViewModel, WorkedLog>();
     }
   }
 }

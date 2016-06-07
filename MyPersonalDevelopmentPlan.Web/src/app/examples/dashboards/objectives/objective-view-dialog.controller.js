@@ -11,7 +11,9 @@
         vm.cancelClick = cancelClick;
         vm.okClick = okClick;
         vm.objectiveDialog = objective;
-        vm.workedLog = null;
+        vm.workedLog = {
+            objectiveId: objective.Id
+        };
         vm.printClick = printClick;
         vm.updateClick = updateClick;
         vm.saveLogClick = saveLogClick;
@@ -31,21 +33,21 @@
         }
 
         function saveLogClick(){
-            GoalsService.addWorkedLog(vm.vm.workedLog, vm.objective)
+            GoalsService.saveWorkedLog(vm.workedLog, handleSuccess, handleFailed)
         }
 
         function updateClick(){
             GoalsService.updateObjective(vm.objectiveDialog, handleSuccess, handleFailed);
         }
 
-        function handleSuccess(){
+        function handleSuccess(result){
             $mdToast.show(
                 $mdToast.simple()
-                    .content('Objective was successfully updated')
+                    .content('The action was finished with Success')
                     .position('bottom right')
                     .hideDelay(5000)
             );
-            $mdDialog.hide(vm.objectiveDialog);
+            $mdDialog.hide(result.data);
         }
 
         function handleFailed(){

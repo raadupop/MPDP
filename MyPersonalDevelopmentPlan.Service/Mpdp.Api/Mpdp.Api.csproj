@@ -142,11 +142,13 @@
     <Compile Include="Infrastructure\Validators\AccountViewModelValidators.cs" />
     <Compile Include="Infrastructure\Validators\GoalViewModelvalidators.cs" />
     <Compile Include="Infrastructure\Validators\ObjectiveViewModelValidators.cs" />
+    <Compile Include="Infrastructure\Validators\WorkedLogValidators.cs" />
     <Compile Include="Models\GoalViewModel.cs" />
     <Compile Include="Models\ObjectiveViewModel.cs" />
     <Compile Include="Models\UserProfileViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegistrationViewModel.cs" />
+    <Compile Include="Models\WorkedLogViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

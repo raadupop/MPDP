@@ -32,6 +32,9 @@ namespace Mpdp.Api.Infrastructure.Mappings
         .ForSourceMember(g => g.EstimationTicks, vm => vm.Ignore())
         .ForSourceMember(g => g.ExtraTimeTicks, vm => vm.Ignore())
         .ForSourceMember(g => g.RemainingEstimates, vm => vm.Ignore());
+
+      Mapper.CreateMap<WorkedLog, WorkedLogViewModel>()
+        .ForSourceMember(w => w.TimeWorkedTicks, vm => vm.Ignore());
     }
 
 

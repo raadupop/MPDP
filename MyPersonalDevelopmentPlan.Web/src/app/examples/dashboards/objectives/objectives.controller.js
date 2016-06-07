@@ -56,11 +56,6 @@
 
         function openObjective(objective, $event)
         {
-            setTimeout(function () {
-                $scope.$apply(function () {
-                    $scope.message = "Timeout called!";
-                });
-            }, 2000);
             $mdDialog.show({
                 templateUrl: 'app/examples/dashboards/objectives/objective-view-dialog.tmpl.html',
                 targetEvent: $event,
@@ -108,10 +103,14 @@
         }
 
         function handleFailed(){
-            vm.goals = null;
+            $mdToast.show(
+                $mdToast.simple()
+                    .content("Something goes wrong")
+                    .position('bottom right')
+                    .hideDelay(2000)
+            );
         }
         //init
         getGoals();
-
     }
 })();

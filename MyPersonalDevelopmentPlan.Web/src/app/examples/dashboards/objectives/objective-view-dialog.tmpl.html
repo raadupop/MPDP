@@ -61,7 +61,7 @@
                             <strong>Remaining estimation</strong>
                         </div>
                         <div flex>
-                            <span>{{vm.objectiveDialog.RemainingEstimation | duration}}</span>
+                            <span>{{vm.objectiveDialog.RemainingEstimates | duration}}</span>
                         </div>
                     </div>
                     <div flex layout="row" class="margin-bottom-20">
@@ -115,7 +115,7 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>Extra time effort</label>
-                        <input type="text" name="remainingEstimation" ng-model="vm.objectiveDialog.RemainingEstimation | duration" valid-estimation required/>
+                        <input type="text" name="remainingEstimation" ng-model="vm.objectiveDialog.RemainingEstimates | duration" valid-estimation required/>
                         <div  ng-messages="objective.remainingEstimation.$error">
                             <span ng-message="estimationValidator">Please follow the example.</span>
                         </div>
@@ -148,14 +148,14 @@
                     <form name="workedlogs" class="margin-top-20">
                         <md-input-container class="md-block">
                             <label>Worked logs</label>
-                            <input type="text" placeholder="Ex: 1d 10h 10m" ng-model="vm.workedlogs.Duration" valid-estimation required/>
+                            <input type="text" placeholder="Ex: 1d 10h 10m" ng-model="vm.workedLog.Duration" valid-estimation required/>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>Descritpion</label>
-                            <input type="text" ng-model="vm.workedlogs.Description" required/>
+                            <input type="text" ng-model="vm.workedLog.Description" required/>
                         </md-input-container>
                         <div layout="row" layout-align="start">
-                            <md-datepicker style="margin-left: -12px;" layout-align="center" ng-model="vm.workedlogs.Date" md-placeholder="Date" required=""></md-datepicker>
+                            <md-datepicker style="margin-left: -12px;" layout-align="center" ng-model="vm.workedLog.DateLog" md-placeholder="Date" required=""></md-datepicker>
                         </div>
                         <div layout="row" layout-align="end center">
                             <md-button class="md-primary" ng-click="vm.saveLogClick()" ng-disabled="workedlogs.$invalid">Save</md-button>

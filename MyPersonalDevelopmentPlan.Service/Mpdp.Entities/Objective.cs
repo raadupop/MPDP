@@ -33,7 +33,7 @@ namespace Mpdp.Entities
     public TimeSpan RemainingEstimates
     {
       get { return TimeSpan.FromTicks(RemainingEstimatesTicks); }
-      set { EstimationTicks = value.Ticks; }
+      set { RemainingEstimatesTicks = value.Ticks; }
     }
 
     [NotMapped]

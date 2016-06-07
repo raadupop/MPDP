@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -14,7 +15,7 @@ using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace Mpdp.Api.Models
 {
-  public class ObjectiveViewModel
+  public class ObjectiveViewModel : IValidatableObject
   { 
     public int Id { get; set; }
 
@@ -28,7 +29,7 @@ namespace Mpdp.Api.Models
 
     public DateTime DateCreated { get; set; }
 
-    public TimeSpan RemainingEstimate { get; set; }
+    public TimeSpan RemainingEstimates { get; set; }
 
     public TimeSpan Estimation { get; set; }
 
@@ -40,12 +41,11 @@ namespace Mpdp.Api.Models
     [JsonConverter(typeof(StringEnumConverter))]
     public Status ObjectiveStatus { get; set; }
 
-    public IEnumerable<ValidationResult> Validate(ValidationContext validaitonContext)
+    public IEnumerable<ValidationResult> Validate(System.ComponentModel.DataAnnotations.ValidationContext validationContext)
     {
       var validator = new ObjectiveViewModelValidators.ObjectiveViewModelValidator();
       var result = validator.Validate(this);
-      return result.Errors.Select(item => new ValidationResult(item.ErrorMessage, new[] {item.PropertyName}));
-    } 
-
+      return result.Errors.Select(item => new ValidationResult(item.ErrorMessage, new[] { item.PropertyName }));
+    }
   }
 }
