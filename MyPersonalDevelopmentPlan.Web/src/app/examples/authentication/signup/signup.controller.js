@@ -51,11 +51,13 @@
             $state.go('authentication.login');
         }
 
-        function handleFailed(){
-            $mdToast.simple()
-                .content('Ops something goes wrong')
-                .position('bottom right')
-                .hideDelay(1500)
+        function handleFailed(result){
+            $mdToast.show(
+                $mdToast.simple()
+                    .content(result.data)
+                    .position('bottom right')
+                    .hideDelay(5000)
+            )
         }
     }
 })();

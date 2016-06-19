@@ -129,35 +129,36 @@
                 name: 'My objectives',
                 state: 'triangular.admin-default.dashboard-objectives',
                 type: 'link'
-            },{
+            }, {
                 name: 'MENU.DASHBOARDS.ANALYTICS',
                 state: 'triangular.admin-default.dashboard-analytics',
                 type: 'link'
-            },{
-                name: 'General2',
-                state: 'triangular.admin-default.dashboard-2',
-                type: 'link'
-            },{
-                name: 'MENU.DASHBOARDS.SALES',
-                state: 'triangular.admin-default.dashboard-sales',
-                type: 'link'
-            },{
-                name: 'MENU.DASHBOARDS.SERVER',
-                state: 'triangular.admin-default.dashboard-server',
-                type: 'link'
-            },{
-                name: 'MENU.DASHBOARDS.SOCIAL',
-                state: 'triangular.admin-default.dashboard-social',
-                type: 'link'
-            },{
-                name: 'MENU.DASHBOARDS.WIDGETS',
-                state: 'triangular.admin-default.dashboard-widgets',
-                type: 'link'
-            },{
-                name: 'MENU.DASHBOARDS.DRAGGABLE',
-                state: 'triangular.admin-default.dashboard-draggable',
-                type: 'link'
             }]
+            //},{
+            //    name: 'General2',
+            //    state: 'triangular.admin-default.dashboard-2',
+            //    type: 'link'
+            //},{
+            //    name: 'MENU.DASHBOARDS.SALES',
+            //    state: 'triangular.admin-default.dashboard-sales',
+            //    type: 'link'
+            //},{
+            //    name: 'MENU.DASHBOARDS.SERVER',
+            //    state: 'triangular.admin-default.dashboard-server',
+            //    type: 'link'
+            //},{
+            //    name: 'MENU.DASHBOARDS.SOCIAL',
+            //    state: 'triangular.admin-default.dashboard-social',
+            //    type: 'link'
+            //},{
+            //    name: 'MENU.DASHBOARDS.WIDGETS',
+            //    state: 'triangular.admin-default.dashboard-widgets',
+            //    type: 'link'
+            //},{
+            //    name: 'MENU.DASHBOARDS.DRAGGABLE',
+            //    state: 'triangular.admin-default.dashboard-draggable',
+            //    type: 'link'
+            //}]
         });
     }
 })();

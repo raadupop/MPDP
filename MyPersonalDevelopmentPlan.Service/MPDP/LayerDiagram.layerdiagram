@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="f5047872-77ad-465c-8064-4589459ee371" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <layers>
+    <layer Id="acce3713-f10b-4e38-a4cd-d6d6b9c68bdc" name="Mpdp.Api">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="eacad786-3ac9-4b19-96ce-9b1edaab84e5" direction="Forward">
+          <layerMoniker Id="7e1776c2-f4a3-441a-83df-1a665a636106" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="05ec27c3-fd15-475d-8451-03629be17beb" direction="Forward">
+          <layerMoniker Id="9dd61e41-e5fd-4160-942d-f1921f694730" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="4364736a-964b-4aa4-83e9-84d87250d2e0" direction="Forward">
+          <layerMoniker Id="0f1e6163-9325-42ad-9857-2a46c1bac746" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="14a90661-bf79-4bb0-9b22-9e2fba2f4b4e" name="Mpdp.Api">
+          <ArtifactNode Label="Mpdp.Api" Category="CodeSchema_Project" Id="(Assembly=&quot;$(DesktopUri)/MPDP/MyPersonalDevelopmentPlan.Service/Mpdp.Api/Mpdp.Api.csproj&quot;)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Mpdp.Api)" Label="Mpdp.Api.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="0f1e6163-9325-42ad-9857-2a46c1bac746" name="Mpdp.Data">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="4241fd0b-d3a8-4207-a6fe-24591af2b757" direction="Forward">
+          <layerMoniker Id="7e1776c2-f4a3-441a-83df-1a665a636106" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="1a9caafb-528b-4f53-ab01-19009d0be175" name="Mpdp.Data">
+          <ArtifactNode Label="Mpdp.Data" Category="CodeSchema_Project" Id="(Assembly=&quot;$(DesktopUri)/MPDP/MyPersonalDevelopmentPlan.Service/Mpdp.Data/Mpdp.Data.csproj&quot;)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Mpdp.Data)" Label="Mpdp.Data.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="7e1776c2-f4a3-441a-83df-1a665a636106" name="Mpdp.Entities">
+      <references>
+        <reference Id="c4c064f5-47f4-4bf8-b6e0-021ee7500344" name="Mpdp.Entities">
+          <ArtifactNode Label="Mpdp.Entities" Category="CodeSchema_Project" Id="(Assembly=&quot;$(DesktopUri)/MPDP/MyPersonalDevelopmentPlan.Service/Mpdp.Entities/Mpdp.Entities.csproj&quot;)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Mpdp.Entities)" Label="Mpdp.Entities.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="9dd61e41-e5fd-4160-942d-f1921f694730" name="Mpdp.Services">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="3e15439d-0f52-418d-afdf-36d8bfd9ed11" direction="Forward">
+          <layerMoniker Id="0f1e6163-9325-42ad-9857-2a46c1bac746" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="7bae9240-403e-4b94-972a-10f12af9746d" direction="Forward">
+          <layerMoniker Id="7e1776c2-f4a3-441a-83df-1a665a636106" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="4535d666-4339-4618-9c82-65278295686c" name="Mpdp.Services">
+          <ArtifactNode Label="Mpdp.Services" Category="CodeSchema_Project" Id="(Assembly=&quot;$(DesktopUri)/MPDP/MyPersonalDevelopmentPlan.Service/Mpdp.Services/Mpdp.Services.csproj&quot;)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Mpdp.Services)" Label="Mpdp.Services.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+  </layers>
+</layerModel>

@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mpdp.Services", "Mpdp.Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mpdp.Api", "Mpdp.Api\Mpdp.Api.csproj", "{3C2C7EB9-563E-47D5-9310-41A27986F566}"
 EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "MPDP", "MPDP\MPDP.modelproj", "{CFFD3CDD-C874-475F-A4F7-922B4B283F87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,14 +38,14 @@ Global
 		{A173F488-8DAB-4349-9EC8-219C4C973A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A173F488-8DAB-4349-9EC8-219C4C973A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A173F488-8DAB-4349-9EC8-219C4C973A40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7AA394E5-C07F-4D9C-A2EC-0741F4F0A69F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AA394E5-C07F-4D9C-A2EC-0741F4F0A69F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AA394E5-C07F-4D9C-A2EC-0741F4F0A69F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AA394E5-C07F-4D9C-A2EC-0741F4F0A69F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C2C7EB9-563E-47D5-9310-41A27986F566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C2C7EB9-563E-47D5-9310-41A27986F566}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C2C7EB9-563E-47D5-9310-41A27986F566}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C2C7EB9-563E-47D5-9310-41A27986F566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFFD3CDD-C874-475F-A4F7-922B4B283F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFFD3CDD-C874-475F-A4F7-922B4B283F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFFD3CDD-C874-475F-A4F7-922B4B283F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFFD3CDD-C874-475F-A4F7-922B4B283F87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
