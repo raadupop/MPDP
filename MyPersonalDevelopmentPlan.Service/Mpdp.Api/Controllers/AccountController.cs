@@ -18,9 +18,11 @@ namespace Mpdp.Api.Controllers
     private readonly IMembershipService _membershipService;
     private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
     private readonly IEntityBaseRepository<User> _userRepository;
+    private readonly IEntityBaseRepository<UserRole> _userRoleRepository; 
 
-    public AccountController(IMembershipService membershipService, IEntityBaseRepository<User> userRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
+    public AccountController(IMembershipService membershipService, IEntityBaseRepository<UserRole> userRoleRepository, IEntityBaseRepository<User> userRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
     {
+      _userRoleRepository = userRoleRepository;
       _membershipService = membershipService;
       _userProfileRepository = userProfileRepository;
       _userRepository = userRepository;
@@ -80,10 +82,13 @@ namespace Mpdp.Api.Controllers
        }
        else
        {
-         User _user = _membershipService.CreateUser(user.Username, user.Email, user.Password, new[] { 2 });
+         User _user = _membershipService.CreateUser(user.Username, user.Email, user.Password, new []{1});
 
          if (_user != null)
          {
+           //_userRoleRepository.Add(new UserRole() {RoleId = 2, UserId = _user.Id});
+           //_unitOfWork.Commit();
+
            _userRepository.Add(_user);
            _unitOfWork.Commit();
 
