@@ -73,6 +73,7 @@ namespace Mpdp.Data.Repositories
     }
     public virtual void Delete(T entity)
     {
+   
       DbEntityEntry dbEntityEntry = DbContext.Entry<T>(entity);
       dbEntityEntry.State = EntityState.Deleted;
     }

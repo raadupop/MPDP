@@ -9,11 +9,16 @@
     function GoalsFabController($rootScope) {
         var vm = this;
         vm.changeDate = changeDate;
+        vm.registerGoal = registerGoal;
 
         ////////////////
 
         function changeDate($event) {
             $rootScope.$broadcast('goalsChangeDate', $event);
+        }
+
+        function registerGoal($event) {
+            $rootScope.$broadcast('registerGoal', $event)
         }
     }
 })();

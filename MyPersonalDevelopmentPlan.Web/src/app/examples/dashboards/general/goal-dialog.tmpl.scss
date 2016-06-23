@@ -6,6 +6,15 @@
   border: 1px solid #FEFEFE;
 }
 
+
+.md-fab-bottom-right-up {
+    position: absolute;
+    bottom: 90px;
+    top: auto;
+    left: auto;
+    right: 20px;
+}
+
 @media print {
   .md-dialog-container, .order-dialog {
     top: 0px;

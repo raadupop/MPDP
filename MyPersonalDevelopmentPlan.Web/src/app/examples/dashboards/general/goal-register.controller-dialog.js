@@ -5,14 +5,16 @@
     'use strict';
 
     angular
-        .module('app.examples.forms')
+        .module('app.examples.dashboards')
         .controller('GoalRegisterController', GoalRegisterController);
 
     /* @ngInject */
-    function GoalRegisterController(triSettings, ApiWebService, ApiConfig, $rootScope, $mdToast, moment) {
+    function GoalRegisterController(triSettings, ApiWebService, ApiConfig, $rootScope, $mdToast, moment, $mdDialog) {
         var vm = this;
         vm.registerClick = registerClick;
         vm.triSettings = triSettings;
+        vm.okClick = okClick;
+        vm.cancelClick = cancelClick;
 
         // todo validation !!
         vm.goal = {
@@ -20,6 +22,14 @@
             description: '',
             estimation: ''
         };
+
+        function okClick() {
+            $mdDialog.hide();
+        }
+
+        function cancelClick() {
+            $mdDialog.cancel();
+        }
 
         function registerClick(){
 
@@ -62,12 +72,7 @@
 
 
         function goalSucceded(){
-            $mdToast.show(
-                $mdToast.simple()
-                    .content('Goal was successfully added')
-                    .position('bottom right')
-                    .hideDelay(5000)
-            );
+            $mdDialog.hide();
         }
 
         function goalFailed() {
@@ -78,7 +83,6 @@
                     .hideDelay(5000)
             );
         }
-
     }
 
 })();

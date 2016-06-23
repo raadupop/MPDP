@@ -60,6 +60,38 @@ namespace Mpdp.Api.Controllers
       });
     }
 
+    [HttpDelete]
+    public HttpResponseMessage DeleteGoal(HttpRequestMessage request, int id)
+    {
+      return CreateHttpResponse(request, () =>
+      {
+        HttpResponseMessage response;
+
+        Goal goalToDelete = _goalRepository.GetSingle(id);
+
+        if (goalToDelete == null)
+        {
+          response = request.CreateErrorResponse(HttpStatusCode.NotFound, "Invalid goal");
+        }
+        else
+        {
+          foreach (var g in goalToDelete.Objectives.ToList())
+          {
+            _objectiveRepository.Delete(g);
+          }
+
+          _unitOfWork.Commit();
+
+
+          _goalRepository.Delete(goalToDelete);
+          _unitOfWork.Commit();
+
+          response = request.CreateResponse(HttpStatusCode.OK, "The goal was successfully deleted");
+        }
+        return response;
+      });
+    }
+
     [HttpGet]
     [Route("")]
     public HttpResponseMessage GetGoals(HttpRequestMessage request, int userId, DateTime? startDate, DateTime? endDate)

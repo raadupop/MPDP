@@ -17,6 +17,8 @@
         service.updateObjective = updateObjective;
         service.addObjective = addObjective;
         service.saveWorkedLog = saveWorkedLog;
+        service.deleteGoal = deleteGoal;
+
         return service;
         ///
 
@@ -49,6 +51,10 @@
         function saveWorkedLog(woorkedLod, success, failed){
             woorkedLod.Duration = estimationTimeSpanWrapper(woorkedLod.Duration);
             ApiWebService.post(ApiConfig + 'goal/addworkedlog', woorkedLod, success, failed);
+        }
+
+        function deleteGoal(goal, success, failed){
+            ApiWebService.deleteData(ApiConfig + 'goal/deletegoal?id=' + goal.Id, success, failed);
         }
 
 

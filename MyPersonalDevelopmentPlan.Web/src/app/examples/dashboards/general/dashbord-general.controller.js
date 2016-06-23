@@ -33,6 +33,7 @@
         vm.openGoals = 0;
 
         vm.openGoal = openGoal;
+        vm.removeGoal = removeGoal;
 
         function openGoal(goal, $event) {
             $mdDialog.show({
@@ -109,6 +110,49 @@
                     );
                 });
         });
+
+        $scope.$on('registerGoal', function(event, $event) {
+            $mdDialog.show({
+                controller: 'GoalRegisterController',
+                controllerAs: 'vm',
+                templateUrl: 'app/examples/dashboards/general/goal-register-dialog.tmpl.html',
+                targetEvent: $event
+            })
+                .then(function(){
+                    // update new data
+                    getGoals();
+
+                    // pop a toast
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .content('Goals is updating...')
+                            .position('bottom right')
+                            .hideDelay(2000)
+                    );
+                })
+        });
+
+        function removeGoal(goal, $event) {
+            $mdDialog.show({
+                controller: 'RemoveGoalController',
+                controllerAs: 'vm',
+                templateUrl: 'app/examples/dashboards/general/goal-remove-dialog.tmpl.html',
+                locals: {
+                    goal: goal
+                },
+                targetEvent: $event
+            }).then(function() {
+                // update new data
+                getGoals();
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .content('Goals is updating...')
+                        .position('bottom right')
+                        .hideDelay(2000)
+                );
+            });
+        }
 
         /// init
         getGoals();

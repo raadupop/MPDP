@@ -51,10 +51,11 @@
             $state.go('authentication.login');
         }
 
-        function handleFailed(result){
+        function handleFailed(){
+            //todo handle a "user exist context"
             $mdToast.show(
                 $mdToast.simple()
-                    .content(result.data)
+                    .content("The web service can't complete your request")
                     .position('bottom right')
                     .hideDelay(5000)
             )

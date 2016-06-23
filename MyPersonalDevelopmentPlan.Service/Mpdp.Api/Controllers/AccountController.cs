@@ -18,7 +18,7 @@ namespace Mpdp.Api.Controllers
     private readonly IMembershipService _membershipService;
     private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
     private readonly IEntityBaseRepository<User> _userRepository;
-    private readonly IEntityBaseRepository<UserRole> _userRoleRepository; 
+    private readonly IEntityBaseRepository<UserRole> _userRoleRepository;
 
     public AccountController(IMembershipService membershipService, IEntityBaseRepository<UserRole> userRoleRepository, IEntityBaseRepository<User> userRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
     {
@@ -48,12 +48,12 @@ namespace Mpdp.Api.Controllers
               int userProfileId = firstOrDefault.Id;
 
               //Todo rename on the client userId to userProfileId after applying this change here
-              response = request.CreateResponse(HttpStatusCode.OK, new {success = true, userId = userProfileId});
+              response = request.CreateResponse(HttpStatusCode.OK, new { success = true, userId = userProfileId });
 
             }
             else
             {
-              response = request.CreateResponse(HttpStatusCode.BadRequest, new {success = false});
+              response = request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
             }
           }
           else
@@ -82,32 +82,26 @@ namespace Mpdp.Api.Controllers
        }
        else
        {
-         User _user = _membershipService.CreateUser(user.Username, user.Email, user.Password, new []{1});
 
-         if (_user != null)
+         User newUser = _membershipService.CreateUser(user.Username, user.Email, user.Password, new[] { 2 });
+
+         if (newUser != null)
          {
-           //_userRoleRepository.Add(new UserRole() {RoleId = 2, UserId = _user.Id});
-           //_unitOfWork.Commit();
-
-           _userRepository.Add(_user);
-           _unitOfWork.Commit();
-
-           var userProfile = new UserProfile() {Name = user.Name, User = _user};
+           var userProfile = new UserProfile() {Name = user.Name, User = newUser};
            _userProfileRepository.Add(userProfile);
            _unitOfWork.Commit();
 
-
-           response = request.CreateResponse(HttpStatusCode.OK, new { success = true });
+           response = request.CreateResponse(HttpStatusCode.OK, new {success = true});
          }
          else
          {
-           response = request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
-         }
+           response = request.CreateResponse(HttpStatusCode.BadRequest, new {success = false});
+         }     
        }
 
        return response;
-     });
+    });
 
     }
-  }
+}
 }

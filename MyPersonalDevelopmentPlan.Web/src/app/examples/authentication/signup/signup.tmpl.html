@@ -13,11 +13,11 @@
             <md-content class="md-padding">
                 <form name="signup">
                     <md-input-container class="md-block">
-                        <label for="name" translate>SIGNUP.NAME.LABEL</label>
+                        <label for="name">Please enter a name</label>
                         <input id="name" label="name" name="name" type="text" ng-model="vm.user.name" required/>
                         <div ng-messages="signup.name.$error" ng-if="signup.name.$dirty">
                             <div ng-message when="required">
-                                <span translate>SIGNUP.NAME.PLEASE_ENTER</span>
+                                <span>Please provide a valid name</span>
                             </div>
                         </div>
                     </md-input-container>
@@ -27,7 +27,7 @@
                         <input id="username" label="username" name="username" type="text" ng-model="vm.user.username" required/>
                         <div ng-messages="signup.username.$error" ng-if="signup.username.$dirty">
                             <div ng-message when="required">
-                                <span translate>SIGNUP.USERNAME.PLEASE_ENTER</span>
+                                <span>Please provide a valid username</span>
                             </div>
                         </div>
                     </md-input-container>
@@ -37,10 +37,10 @@
                         <input id="email" label="email" name="email" type="email" ng-model="vm.user.email" required/>
                         <div ng-messages="signup.email.$error" ng-if="signup.email.$dirty">
                             <div ng-message when="required">
-                                <span translate>SIGNUP.EMAIL.PLEASE_ENTER</span>
+                                <span translate>Please enter an email</span>
                             </div>
                             <div ng-message when="email">
-                                <span translate>SIGNUP.EMAIL.PLEASE_VALID</span>
+                                <span translate>Please provide a valid email</span>
                             </div>
                         </div>
                     </md-input-container>
