@@ -6,19 +6,20 @@
 
     angular
         .module('app.examples.authentication')
-        .factory('AuthenticationService', AuthenticationService);
+        .factory('AuthenticationService', authenticationService);
 
     /* @ngInject */
-    function AuthenticationService($http, $cookieStore, $rootScope, ApiConfig) {
+    function authenticationService($http, $cookieStore, $rootScope, ApiConfig) {
         var service = {};
 
-        service.Login = Login;
-        service.SetCredentials = SetCredentials;
-        service.ClearCredentials = ClearCredentials;
+        service.login = login;
+        service.setCredentials = setCredentials;
+        service.clearCredentials = clearCredentials;
 
         return service;
 
-        function Login(user, successs, failure) {
+        //todo: this should be hookup with ApiWebService
+        function login(user, successs, failure) {
             $http.post(ApiConfig + 'account/login', user)
                 .then(
                 function (response) {
@@ -30,13 +31,13 @@
             );
         }
 
-        function SetCredentials(user, result) {
+        function setCredentials(user, userProfileId) {
             var authdata = Base64.encode(user.username + ':' + user.password);
 
             $rootScope.globals = {
                 currentUser: {
                     username: user.username,
-                    userId: result.userId,
+                    userProfileId: userProfileId,
                     authdata: authdata
                 }
             };
@@ -45,7 +46,7 @@
             $cookieStore.put('globals', $rootScope.globals);
         }
 
-        function ClearCredentials() {
+        function clearCredentials() {
             $rootScope.globals = {};
             $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic';

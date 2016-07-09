@@ -52,15 +52,15 @@
                 });
         }
 
-        function deleteData(url, success, failure){
-            return $http.delete(url)
+        function deleteData(url, config, success, failure){
+            return $http.delete(url, config)
                 .then(function (result){
                     success(result);
                 }, function (error) {
                     if (error.status =='401'){
                         $state.go('authentication.login');
                     }
-                    else if (filure != null) {
+                    else if (failure != null) {
                         failure(error)
                     }
                 })
@@ -73,4 +73,7 @@
             deleteData: deleteData
         };
     }
+
+
+
 })();

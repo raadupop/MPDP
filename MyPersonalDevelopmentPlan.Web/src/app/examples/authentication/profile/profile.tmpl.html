@@ -73,7 +73,7 @@
                             <div ng-messages="password.confirm.$error" ng-include="'app/examples/authentication/signup/password.messages.html'"></div>
                         </md-input-container>
 
-                        <md-button class="md-raised md-primary margin-left-0" ng-disabled="profile.$invalid" translate="PROFILE.BUTTON"></md-button>
+                        <md-button class="md-raised md-primary margin-left-0" ng-click="vm.updatePassword()" ng-disabled="profile.$invalid" translate="PROFILE.BUTTON"></md-button>
 
                     </form>
                 </md-content>

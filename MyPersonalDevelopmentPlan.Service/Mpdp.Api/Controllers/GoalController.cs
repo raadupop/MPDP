@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -92,6 +93,42 @@ namespace Mpdp.Api.Controllers
       });
     }
 
+    [HttpDelete]
+    public HttpResponseMessage DeleteObjective(HttpRequestMessage request, int id)
+    {
+      return CreateHttpResponse(Request, () =>
+      {
+        HttpResponseMessage respones;
+
+        var objective = _objectiveRepository.GetSingle(id);
+
+        if (objective == null)
+        {
+          respones = request.CreateErrorResponse(HttpStatusCode.NotFound, "The objective was not found");
+        }
+        else
+        {
+          // todo improve me 
+          //var goal = _goalRepository.GetAll().FirstOrDefault(g => g.Objectives.Contains(objective));
+
+          //if (goal != null)
+          //{
+          //  foreach (var goalObjective in goal.Objectives)
+          //  {
+          //    if (goalObjective.Id == objectiveId)
+          //    {
+          //      _goalRepository.Delete().Delete(goalObjective);
+          //    }
+          //  }
+          _objectiveRepository.Delete(objective);
+          _unitOfWork.Commit();
+
+          respones = request.CreateResponse(HttpStatusCode.NoContent, "The objective was successfully deleted");
+        }
+        return respones;
+      });
+    }
+
     [HttpGet]
     [Route("")]
     public HttpResponseMessage GetGoals(HttpRequestMessage request, int userId, DateTime? startDate, DateTime? endDate)
@@ -115,6 +152,54 @@ namespace Mpdp.Api.Controllers
           }
    
         return response;
+      });
+    }
+
+    [HttpGet]
+    public HttpResponseMessage GetGoal(HttpRequestMessage request, int goalId)
+    {
+      return CreateHttpResponse(request, () =>
+      {
+        HttpResponseMessage respone;
+
+        var goal = _goalRepository.GetSingle(goalId);
+
+        if (goal == null)
+        {
+          respone = request.CreateErrorResponse(HttpStatusCode.NotFound, "The goal was not found");
+        }
+        else
+        {
+          GoalViewModel goalVm = Mapper.Map<Goal, GoalViewModel>(goal);
+
+          respone = request.CreateResponse(HttpStatusCode.OK, goalVm);
+        }
+
+        return respone;
+      });
+    }
+
+    [HttpGet]
+    public HttpResponseMessage GetObjectives(HttpRequestMessage request, int goalId)
+    {
+      return CreateHttpResponse(request, () =>
+      {
+        HttpResponseMessage respone;
+
+        var objectives = _goalRepository.GetSingle(goalId).Objectives;
+
+        if (objectives == null)
+        {
+          respone = request.CreateErrorResponse(HttpStatusCode.NotFound, "The goal was not found");
+        }
+        else
+        {
+          IEnumerable<ObjectiveViewModel> objecitvesVm = Mapper.Map<IEnumerable<Objective>, IEnumerable<ObjectiveViewModel>>(objectives);
+
+          respone = request.CreateResponse(HttpStatusCode.OK, objecitvesVm);
+        }
+
+        return respone;
       });
     }
 

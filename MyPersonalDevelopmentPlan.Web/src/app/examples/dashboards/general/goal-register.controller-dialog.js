@@ -9,7 +9,7 @@
         .controller('GoalRegisterController', GoalRegisterController);
 
     /* @ngInject */
-    function GoalRegisterController(triSettings, ApiWebService, ApiConfig, $rootScope, $mdToast, moment, $mdDialog) {
+    function GoalRegisterController(triSettings, GoalsService, $rootScope, $mdToast, $mdDialog) {
         var vm = this;
         vm.registerClick = registerClick;
         vm.triSettings = triSettings;
@@ -33,42 +33,17 @@
 
         function registerClick(){
 
-            estimationTimeSpanWrapper(vm.goal.estimation);
-
             var goalToSend = {
                 username: $rootScope.globals.currentUser.username,
-                userProfileId: $rootScope.globals.currentUser.userId,
+                userProfileId: $rootScope.globals.currentUser.userProfileId,
                 name: vm.goal.name,
                 description: vm.goal.description,
-                estimation: estimationTimeSpanWrapper(vm.goal.estimation)
+                estimation: vm.goal.estimation
             };
 
-            ApiWebService.post(ApiConfig + 'goal/creategoal', goalToSend, goalSucceded, goalFailed)
+            GoalsService.addGoal(goalToSend, goalSucceded, goalFailed)
         }
 
-        //todo make own service for this
-        function estimationTimeSpanWrapper(estimation){
-
-            var mrx = new RegExp(/([0-9][0-9]?)[ ]?m/);
-            var hrx = new RegExp(/([0-9][0-9]?)[ ]?h/);
-            var drx = new RegExp(/([0-9])[ ]?d/);
-
-            var days = 0;
-            var hours = 0;
-            var minutes = 0;
-
-            if (mrx.test(estimation)) {
-                minutes = mrx.exec(estimation)[1];
-            }
-            if (hrx.test(estimation)) {
-                hours = hrx.exec(estimation)[1];
-            }
-            if (drx.test(estimation)) {
-                days = drx.exec(estimation)[1];
-            }
-
-            return moment.duration(days + '.'  + hours + ':' + '' + minutes);
-        }
 
 
         function goalSucceded(){

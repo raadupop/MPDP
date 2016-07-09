@@ -21,9 +21,10 @@
         };
 
         vm.openObjective = openObjective;
+        vm.removeObjective = removeObjective;
 
         vm.getGoals = getGoals;
-        vm.goalStatus = ['open', 'inProgress', 'done'];
+        vm.goalStatus = ['Open', 'Blocked', 'InProgress', 'ReadyToBeDone', 'Done', 'Closed',  'StandBy'];
         vm.goalSelected = null;
         // create filterable data structure for icons
 
@@ -82,16 +83,64 @@
             });
         }
 
+        function removeObjective(objective, ev) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure that you want to delete this objective?')
+                .textContent('The objective will be not recovered.')
+                .ariaLabel('Lucky day')
+                .targetEvent(ev)
+                .ok('Delete')
+                .cancel('Cancel');
+            $mdDialog.show(confirm).then(function() {
+                GoalsService.deleteObjective(objective, deleteObjectiveSuccess, handleFailed);
+            }, function() {
+                $scope.status = 'You decided to keep your debt.';
+            });
+        }
+
+        function deleteObjectiveSuccess(){
+
+            $mdToast.show(
+                $mdToast.simple()
+                    .content('Updating list of objectives')
+                    .position('bottom right')
+                    .hideDelay(6000)
+            );
+
+            GoalsService.getGoal(vm.goalSelected.Id, updateSelectedGoal, failedToGetGoal);
+        }
+
+        function updateSelectedGoal(result){
+            vm.goalSelected = result.data;
+
+            for(var i = 0; i <= vm.goalsResult.goals.length; i++ ){
+                if (vm.goalsResult.goals[i].Id == vm.goalSelected.Id){
+                    vm.goalsResult.goals[i] = vm.goalSelected;
+                }
+            }
+        }
+
+        function failedToGetGoal(){
+            $mdToast.show(
+                $mdToast.simple()
+                    .content('The goal selected is not received')
+                    .position('bottom right')
+                    .hideDelay(6000)
+            );
+
+        }
 
 
         function getGoals(){
-            GoalsService.getGoals($rootScope.globals.currentUser.userId, moment().startOf('year').toISOString(), moment().endOf('year').toISOString(), handleGoalSuccess, handleFailed)
+            GoalsService.getGoals($rootScope.globals.currentUser.userProfileId, moment().startOf('year').toISOString(), moment().endOf('year').toISOString(), handleGoalSuccess, handleFailed)
         }
 
         function handleGoalSuccess(result){
             vm.goalsResult.goals = result.data.goals;
             vm.goalsResult.goalsCount = result.data.goalsCount;
         }
+
 
         function handleObjectiveSuccess(result){
             //for(var i=0; i < vm.goalsResult.goals.length; i++){

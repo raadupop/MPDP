@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Mpdp.Api.Infrastructure.Validators;
-using ValidationContext = FluentValidation.ValidationContext;
 
 
 namespace Mpdp.Api.Models
@@ -15,7 +14,7 @@ namespace Mpdp.Api.Models
     public string Username { get; set; }
     public string Password { get; set; }
 
-    public IEnumerable<ValidationResult> Validate(System.ComponentModel.DataAnnotations.ValidationContext validationContext)
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
       var validator = new AccountViewModelValidators.LoginViewModelValidator();
       var result = validator.Validate(this);

@@ -36,18 +36,18 @@
         ////////////////
 
         function loginClick() {
-            AuthenticationService.Login(vm.user, loginCompleted, loginFailed);
+            AuthenticationService.login(vm.user, loginCompleted, loginFailed);
         }
 
         function loginCompleted(result) {
             if (result.data.success) {
-                AuthenticationService.SetCredentials(vm.user, result.data);
+                AuthenticationService.setCredentials(vm.user, result.data.userProfileId);
                 $state.go('triangular.admin-default.dashboard-analytics');
             }
 
         }
 
-        function loginFailed(response) {
+        function loginFailed() {
             $mdToast.show(
                 $mdToast.simple()
                     .content('Login failed')

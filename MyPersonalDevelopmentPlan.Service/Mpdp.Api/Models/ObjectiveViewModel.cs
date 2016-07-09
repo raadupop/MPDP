@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web;
-using FluentValidation;
-using FluentValidation.Results;
 using Mpdp.Api.Infrastructure.Validators;
 using Mpdp.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using ValidationContext = FluentValidation.ValidationContext;
-using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace Mpdp.Api.Models
 {
@@ -41,7 +35,7 @@ namespace Mpdp.Api.Models
     [JsonConverter(typeof(StringEnumConverter))]
     public Status ObjectiveStatus { get; set; }
 
-    public IEnumerable<ValidationResult> Validate(System.ComponentModel.DataAnnotations.ValidationContext validationContext)
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
       var validator = new ObjectiveViewModelValidators.ObjectiveViewModelValidator();
       var result = validator.Validate(this);

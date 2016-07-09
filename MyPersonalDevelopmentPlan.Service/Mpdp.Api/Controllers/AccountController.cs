@@ -42,14 +42,10 @@ namespace Mpdp.Api.Controllers
 
           if (userContext.User != null)
           {
-            var firstOrDefault = _userProfileRepository.FindBy(u => u.UserId == userContext.User.Id).FirstOrDefault();
-            if (firstOrDefault != null)
+            var userProfile = _userProfileRepository.FindBy(u => u.UserId == userContext.User.Id).FirstOrDefault();
+            if (userProfile != null)
             {
-              int userProfileId = firstOrDefault.Id;
-
-              //Todo rename on the client userId to userProfileId after applying this change here
-              response = request.CreateResponse(HttpStatusCode.OK, new { success = true, userId = userProfileId });
-
+              response = request.CreateResponse(HttpStatusCode.OK, new { success = true, userProfileId = userProfile.Id });
             }
             else
             {
@@ -87,21 +83,47 @@ namespace Mpdp.Api.Controllers
 
          if (newUser != null)
          {
-           var userProfile = new UserProfile() {Name = user.Name, User = newUser};
+           var userProfile = new UserProfile() { Name = user.Name, User = newUser };
            _userProfileRepository.Add(userProfile);
            _unitOfWork.Commit();
 
-           response = request.CreateResponse(HttpStatusCode.OK, new {success = true});
+           response = request.CreateResponse(HttpStatusCode.OK, new { success = true });
          }
          else
          {
-           response = request.CreateResponse(HttpStatusCode.BadRequest, new {success = false});
-         }     
+           response = request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
+         }
        }
 
        return response;
-    });
+     });
 
     }
-}
+
+    [HttpPost]
+    public HttpResponseMessage UpdatePasswrod(HttpRequestMessage request, PasswordAlterationViewModel passwordVm)
+    {
+      return CreateHttpResponse(request, () =>
+      {
+        HttpResponseMessage respone = null;
+
+        if (!ModelState.IsValid)
+        {
+          respone = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        }
+        else if (_membershipService.UpdatePassword(passwordVm.Username, passwordVm.CurrentPassword, passwordVm.NewPassword) == false)
+        {
+          respone = request.CreateErrorResponse(HttpStatusCode.BadGateway, "Invalid username or password");
+        }
+        else
+        {
+          respone = request.CreateResponse(HttpStatusCode.NoContent, "Password was successfully updated");
+        }
+
+        return respone;
+      });
+
+     
+    }
+  }
 }

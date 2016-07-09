@@ -33,7 +33,6 @@ namespace Mpdp.Api.Controllers
 
         if (userProfile != null)
         {
-          // toDo Update Db migration with user profile
           UserProfileViewModel userProfileVm = Mapper.Map<UserProfile, UserProfileViewModel>(userProfile);
           response = request.CreateResponse(HttpStatusCode.OK, userProfileVm);
 

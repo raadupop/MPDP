@@ -13,15 +13,11 @@
 
         var vm = this;
         vm.cancelClick = cancelClick;
-        vm.okClick = okClick;
         vm.goal = goal;
         vm.removeGoal = removeGoal;
 
         ////////////////
 
-        function okClick() {
-            $mdDialog.hide();
-        }
 
         function cancelClick() {
             $mdDialog.cancel();
@@ -32,14 +28,10 @@
         }
 
         function handleSuccess(){
-            $mdToast.show(
-                $mdToast.simple()
-                    .content('Goal was successfully updated')
-                    .position('bottom right')
-                    .hideDelay(5000)
-            );
+            $mdDialog.hide();
         }
 
+        //todo provide a non-generic error
         function handleFailed(){
             $mdToast.show(
                 $mdToast.simple()

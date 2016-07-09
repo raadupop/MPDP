@@ -9,12 +9,12 @@ using System.ComponentModel.DataAnnotations;
 using Mpdp.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using ValidationContext = FluentValidation.ValidationContext;
+using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace Mpdp.Api.Models
 {
-  public class GoalViewModel 
+  public class GoalViewModel : IValidatableObject
   {
     public int Id { get; set; }
 
@@ -48,7 +48,7 @@ namespace Mpdp.Api.Models
     {
       var validator = new GoalViewModelValidators.GoalViewModelvalidator();
       var result = validator.Validate(this);
-      return result.Errors.Select(item => new ValidationResult(item.ErrorMessage, new[] {item.PropertyName }));
+      return result.Errors.Select(item => new ValidationResult(item.ErrorMessage, new[] { item.PropertyName }));
     }
   }
 }

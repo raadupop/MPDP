@@ -93,6 +93,24 @@ namespace Mpdp.Services
       return user;
     }
 
+    public bool UpdatePassword(string username, string oldPassword, string newPassword)
+    {
+      var existingUser = _userRepository.GetSingleByUsername(username);
+
+      if (IsUserValid(existingUser, oldPassword))
+      {
+        existingUser.Salt = _encryptionService.CreateSalt();
+        existingUser.HashedPassword = _encryptionService.EncryptPassword(newPassword, existingUser.Salt);
+
+        _unitOfWork.Commit();
+
+        return true;;
+      }
+
+      return false;
+    }
+
+
     public User GetUser(int userId)
     {
       return _userRepository.GetSingle(userId);

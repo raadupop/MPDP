@@ -59,11 +59,14 @@
         }
 
         function getGoals(){
-            GoalsService.getGoals($rootScope.globals.currentUser.userId, vm.dateRange.start.toISOString(),vm.dateRange.end.toISOString(), handleSuccess, handleFailed);
+            GoalsService.getGoals($rootScope.globals.currentUser.userProfileId, vm.dateRange.start.toISOString(),vm.dateRange.end.toISOString(), handleSuccess, handleFailed);
         }
 
         function handleSuccess(result) {
             var json = result.data.goals;
+
+            vm.openGoals = 0;
+            vm.finishedGoals = 0;
 
             for (var i = 0; i < json.length; i++)
             {
@@ -147,7 +150,7 @@
 
                 $mdToast.show(
                     $mdToast.simple()
-                        .content('Goals is updating...')
+                        .content('The goal was successfully deleted')
                         .position('bottom right')
                         .hideDelay(2000)
                 );

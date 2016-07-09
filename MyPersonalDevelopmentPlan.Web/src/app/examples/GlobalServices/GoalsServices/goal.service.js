@@ -12,12 +12,16 @@
     function GoalsService(ApiWebService, ApiConfig){
         var service = {};
 
+        service.addGoal = addGoal;
         service.getGoals = getGoals;
         service.updateGoal = updateGoal;
         service.updateObjective = updateObjective;
         service.addObjective = addObjective;
         service.saveWorkedLog = saveWorkedLog;
         service.deleteGoal = deleteGoal;
+        service.deleteObjective = deleteObjective;
+        service.getObjectives = getObjectives;
+        service.getGoal = getGoal;
 
         return service;
         ///
@@ -32,7 +36,6 @@
             };
 
             ApiWebService.get(ApiConfig + 'goal/getgoals', config, success, failed);
-
         }
 
         function updateGoal(goal, success, failed){
@@ -41,6 +44,12 @@
 
         function updateObjective(objective, success, failed){
             ApiWebService.put(ApiConfig + 'goal/updateobjective', objective, success, failed);
+        }
+
+        function addGoal(goal, success, failed)
+        {
+            goal.estimation = estimationTimeSpanWrapper(goal.estimation);
+            ApiWebService.post(ApiConfig + 'goal/creategoal', goal, success, failed);
         }
 
         function addObjective(objective, success, failed){
@@ -54,9 +63,30 @@
         }
 
         function deleteGoal(goal, success, failed){
-            ApiWebService.deleteData(ApiConfig + 'goal/deletegoal?id=' + goal.Id, success, failed);
+            ApiWebService.deleteData(ApiConfig + 'goal/deletegoal?id=' + goal.Id, failed, success);
         }
 
+        function deleteObjective(objective, success, failed){
+            ApiWebService.deleteData(ApiConfig + 'goal/deleteobjective?id=' + objective.Id, failed, success)
+        }
+
+        function getObjectives(goalId, success, failed){
+            var config = {
+                params: {
+                    goalId: goalId
+                }
+            };
+            ApiWebService.get(ApiConfig + 'goal/getobjectives', config, success, failed)
+        }
+
+        function getGoal(goalId, success, failed){
+            var config = {
+                params: {
+                    goalId: goalId
+                }
+            };
+            ApiWebService.get(ApiConfig + 'goal/getgoal', config, success, failed)
+        }
 
         //todo make own service for this
         function estimationTimeSpanWrapper(duration){

@@ -7,7 +7,7 @@
             'app.examples.calendar',
             //'app.examples.charts',
             'app.examples.dashboards',
-            //'app.examples.elements',
+            'app.examples.elements',
             'app.examples.email',
             //'app.examples.extras',
             //'app.examples.forms',
