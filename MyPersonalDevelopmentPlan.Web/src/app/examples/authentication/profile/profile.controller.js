@@ -9,7 +9,8 @@
     function ProfileController(ApiWebService, ApiConfig, $rootScope, $mdToast, AuthenticationService) {
         var vm = this;
 
-        vm.updatePassword = updatePasswrord;
+        vm.updatePassword = updatePassword;
+        vm.updateInformation = updateInformation;
 
         vm.settingsGroups = [{
             name: 'ADMIN.NOTIFICATIONS.ACCOUNT_SETTINGS',
@@ -44,6 +45,8 @@
         }];
 
         vm.user = {
+            id: '',
+            userId: '',
             name: '',
             email: '',
             username: '',
@@ -66,10 +69,30 @@
             };
 
             ApiWebService.get(ApiConfig + 'userprofile/getprofile', config, handleSuccess, handleFailed);
+
+            function handleSuccess(result){
+                vm.user.name = result.data.Name;
+                vm.user.username = result.data.Username;
+                vm.user.email = result.data.Email;
+                vm.user.id = result.data.Id;
+                vm.user.userId = result.data.UserId;
+                vm.user.location = result.data.Location;
+
+
+            }
+
+            function handleFailed(){
+                $mdToast.show(
+                    $mdToast.simple()
+                        .content("Something wrong with api service. Try again")
+                        .position('bottom right')
+                        .hideDelay(1500)
+                );
+            }
         }
 
 
-        function updatePasswrord(){
+        function updatePassword(){
             var user = {
                     username: vm.user.username,
                     currentPassword: vm.user.current,
@@ -101,37 +124,34 @@
             function failed(result){
                 $mdToast.show(
                     $mdToast.simple()
-                        .content(result.data)
+                        .content(result.data.toString)
                         .position('bottom right')
                         .hideDelay(1500)
                 )
             }
         }
 
-        function handleSuccess(result){
-            vm.user.name = result.data.Name;
-            vm.user.username = result.data.Username;
-            vm.user.email = result.data.Email;
+        function updateInformation(){
 
+            ApiWebService.post(ApiConfig + 'userprofile/updateprofile', vm.user, success, failed);
 
-        }
+            function success(){
+                $mdToast.show(
+                    $mdToast.simple()
+                        .content("The information was successfully updated")
+                        .position('bottom right')
+                        .hideDelay(1500)
+                );
+            }
 
-        function passwordSuccess(){
-            $mdToast.show(
-                $mdToast.simple()
-                    .content("The password was updated")
-                    .position('bottom right')
-                    .hideDelay(1500)
-            );
-        }
-
-        function handleFailed(){
-            $mdToast.show(
-                $mdToast.simple()
-                    .content("Something wrong with api service. Try again")
-                    .position('bottom right')
-                    .hideDelay(1500)
-            );
+            function failed(result){
+                $mdToast.show(
+                    $mdToast.simple()
+                        .content(result.data.toString)
+                        .position('bottom right')
+                        .hideDelay(1500)
+                );
+            }
         }
     }
 })();

@@ -20,6 +20,8 @@ namespace Mpdp.Api.Infrastructure.Mappings
       Mapper.CreateMap<ObjectiveViewModel, Objective>();
 
       Mapper.CreateMap<WorkedLogViewModel, WorkedLog>();
+
+      Mapper.CreateMap<UserProfileViewModel, UserProfile>();
     }
   }
 }

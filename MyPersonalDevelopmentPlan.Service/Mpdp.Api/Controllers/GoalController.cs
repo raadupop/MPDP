@@ -203,8 +203,8 @@ namespace Mpdp.Api.Controllers
       });
     }
 
-    //todo security improvements about the cross user update;
-    //todo throw 404 when goal isn't specified correct
+    //todo: security improvements about the cross user update;
+    //todo: throw 404 when goal isn't specified correct
     [HttpPut]
     [Route("update")]
     public HttpResponseMessage Update(HttpRequestMessage request, GoalViewModel goal)
@@ -222,7 +222,7 @@ namespace Mpdp.Api.Controllers
           Goal goalToUpdate = new Goal();
           goalToUpdate.UpdateGoal(goal);
 
-          //todo (this is temporary), change the business for the user mapping problem in userProfile
+          //todo: (this is temporary), change the business for the user mapping problem in UserProfile
           var userProfile = _userProfileRepository.GetSingle(goal.UserProfileId);
           goalToUpdate.UserProfile = userProfile;
 
@@ -255,7 +255,7 @@ namespace Mpdp.Api.Controllers
 
           if (goal == null)
           {
-            response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid goalId");
+            response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid goalId provided");
           }
           else
           {
