@@ -6,7 +6,7 @@
         .controller('ForgotController', ForgotController);
 
     /* @ngInject */
-    function ForgotController($scope, $state, $mdToast, $filter, $http, triSettings, API_CONFIG) {
+    function ForgotController($scope, $state, $mdToast, $filter, $http, triSettings, ApiWebService, ApiConfig) {
         var vm = this;
         vm.triSettings = triSettings;
         vm.user = {
@@ -17,31 +17,28 @@
         ////////////////
 
         function resetClick() {
-            $http({
-                method: 'POST',
-                url: API_CONFIG.url + 'reset',
-                data: $scope.user
-            }).
-            success(function(data) {
+            var data = '';
+
+            ApiWebService.put(ApiConfig + 'account/recoverpassword?email=' + vm.user.email, data, success, failed);
+
+
+            function success(result){
                 $mdToast.show(
                     $mdToast.simple()
-                    .content($filter('translate')('FORGOT.MESSAGES.RESET_SENT') + ' ' + data.email)
-                    .position('bottom right')
-                    .action($filter('translate')('FORGOT.MESSAGES.LOGIN_NOW'))
-                    .highlightAction(true)
-                    .hideDelay(0)
-                ).then(function() {
-                    $state.go('public.auth.login');
-                });
-            }).
-            error(function(data) {
-                $mdToast.show(
-                    $mdToast.simple()
-                    .content($filter('translate')('FORGOT.MESSAGES.NO_RESET') + ' ' + data.email)
-                    .position('bottom right')
-                    .hideDelay(5000)
+                        .content(result.data)
+                        .position('bottom right')
+                        .hideDelay(1500)
                 );
-            });
+            }
+
+            function failed(result){
+                $mdToast.show(
+                    $mdToast.simple()
+                        .content(result.data)
+                        .position('bottom right')
+                        .hideDelay(1500)
+                );
+            }
         }
     }
 })();

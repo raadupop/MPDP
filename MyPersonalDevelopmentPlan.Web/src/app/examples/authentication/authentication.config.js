@@ -58,11 +58,11 @@
             //    name: 'MENU.AUTH.SIGN_UP',
             //    state: 'authentication.signup',
             //    type: 'link'
-            },{
-                name: 'MENU.AUTH.FORGOT',
-                state: 'authentication.forgot',
-                type: 'link'
-            },{
+            //},{
+            //    name: 'MENU.AUTH.FORGOT',
+            //    state: 'authentication.forgot',
+            //    type: 'link'
+            //},{
             //    name: 'MENU.AUTH.LOCK',
             //    state: 'authentication.lock',
             //    type: 'link'

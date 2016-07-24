@@ -31,6 +31,7 @@
             );
         }
 
+
         function setCredentials(user, userProfileId) {
             var authdata = Base64.encode(user.username + ':' + user.password);
 
@@ -49,7 +50,7 @@
         function clearCredentials() {
             $rootScope.globals = {};
             $cookieStore.remove('globals');
-            $http.defaults.headers.common.Authorization = 'Basic';
+            $http.defaults.headers.common.Authorization = '';
         }
     }
     var Base64 = {

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
+using System.Text;
 using System.Web.Http;
 using Mpdp.Api.Models;
 using Mpdp.Data.Infrastructure;
@@ -17,15 +17,11 @@ namespace Mpdp.Api.Controllers
   {
     private readonly IMembershipService _membershipService;
     private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
-    private readonly IEntityBaseRepository<User> _userRepository;
-    private readonly IEntityBaseRepository<UserRole> _userRoleRepository;
 
-    public AccountController(IMembershipService membershipService, IEntityBaseRepository<UserRole> userRoleRepository, IEntityBaseRepository<User> userRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
+    public AccountController(IMembershipService membershipService, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
     {
-      _userRoleRepository = userRoleRepository;
       _membershipService = membershipService;
       _userProfileRepository = userProfileRepository;
-      _userRepository = userRepository;
     }
 
     [AllowAnonymous]
@@ -34,7 +30,7 @@ namespace Mpdp.Api.Controllers
     {
       return CreateHttpResponse(request, () =>
       {
-        HttpResponseMessage response = null;
+        HttpResponseMessage response;
 
         if (ModelState.IsValid)
         {
@@ -70,7 +66,7 @@ namespace Mpdp.Api.Controllers
     {
       return CreateHttpResponse(request, () =>
      {
-       HttpResponseMessage response = null;
+       HttpResponseMessage response;
 
        if (!ModelState.IsValid)
        {
@@ -105,7 +101,7 @@ namespace Mpdp.Api.Controllers
     {
       return CreateHttpResponse(request, () =>
       {
-        HttpResponseMessage respone = null;
+        HttpResponseMessage respone;
 
         if (!ModelState.IsValid)
         {
@@ -121,9 +117,64 @@ namespace Mpdp.Api.Controllers
         }
 
         return respone;
-      });
-
-     
+      });    
     }
+
+    [AllowAnonymous]
+    [HttpPut]
+    public HttpResponseMessage RecoverPassword(HttpRequestMessage request, [FromUri] string email)
+    {
+      return CreateHttpResponse(request, () =>
+      {
+        HttpResponseMessage response;
+
+        //todo: maybe creation an extension to validate the email
+        if (email != null)
+        {
+          //todo: rollback in case that the e-mail was not sent. Implementation with using statement to be disposable 
+          var newPassword = _membershipService.ResetPassword(email);
+
+          if (newPassword != null)
+          {
+            var fromAddress = new MailAddress("mpdp.noreply@gmail.com", "MPDP");
+            var toAddress = new MailAddress(email);
+            const string fromPassword = "password1@";
+            const string subject = "Password recovery";
+            string body = "The new password is: " + newPassword;
+
+            var smtp = new SmtpClient
+            {
+              Host = "smtp.gmail.com",
+              Port = 587,
+              EnableSsl = true,
+              DeliveryMethod = SmtpDeliveryMethod.Network,
+              UseDefaultCredentials = false,
+              Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+              Subject = subject,
+              Body = body
+            })
+            {
+              smtp.Send(message);
+            }
+
+            response = request.CreateResponse(HttpStatusCode.Accepted, "The e-mail with a new password was send");
+          }
+          else
+          {
+            response = request.CreateErrorResponse(HttpStatusCode.NotFound, "The email was not founded in the databases");
+          }
+        }
+        else
+        {
+          response = request.CreateResponse(HttpStatusCode.BadRequest, "The email could not be null");
+        }
+
+        return response;
+      });
+    }
+
   }
 }

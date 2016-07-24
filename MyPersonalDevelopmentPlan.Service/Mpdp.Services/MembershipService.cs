@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Security;
 using Mpdp.Data.Extension;
 using Mpdp.Data.Infrastructure;
 using Mpdp.Data.Repositories;
@@ -110,6 +111,21 @@ namespace Mpdp.Services
       return false;
     }
 
+    public string ResetPassword(string email)
+    {
+      User existingUser = _userRepository.FindBy(u => u.Email.Equals(email)).FirstOrDefault();
+
+      //todo: this should be throw an exception
+      if (existingUser == null) return null;
+
+      var newPassword = Membership.GeneratePassword(8, 2);
+      existingUser.Salt = _encryptionService.CreateSalt();
+      existingUser.HashedPassword = _encryptionService.EncryptPassword(newPassword, existingUser.Salt);
+
+      _unitOfWork.Commit();
+
+      return newPassword;
+    }
 
     public User GetUser(int userId)
     {

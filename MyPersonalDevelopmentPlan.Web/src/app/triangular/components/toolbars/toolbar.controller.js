@@ -6,7 +6,7 @@
         .controller('DefaultToolbarController', DefaultToolbarController);
 
     /* @ngInject */
-    function DefaultToolbarController($scope, $rootScope, $mdMedia, $translate, $filter, $mdUtil, $mdSidenav, $mdToast, $document, triBreadcrumbsService, triSettings, triLayout, ApiConfig, ApiWebService) {
+    function DefaultToolbarController($scope, $rootScope, $mdMedia, $translate, $filter, $mdUtil, $mdSidenav, $mdToast, $document, triBreadcrumbsService, triSettings, triLayout, ApiConfig, ApiWebService, AuthenticationService) {
         var vm = this;
 
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
@@ -20,6 +20,7 @@
         vm.isFullScreen = false;
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
+        vm.logOutClick = logOutClick;
 
         // initToolbar();
         getUsername();
@@ -105,6 +106,10 @@
                     doc.webkitExitFullscreen();
                 }
             }
+        }
+
+        function logOutClick(){
+            AuthenticationService.clearCredentials();
         }
 
         $scope.$on('newMailNotification', function(){
