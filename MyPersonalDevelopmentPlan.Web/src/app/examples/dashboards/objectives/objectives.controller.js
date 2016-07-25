@@ -66,20 +66,28 @@
                     objective: angular.copy(objective)
                 }
             })
-            .then(function(objective) {
-                for(var i =  0; i <= vm.goalSelected.Objectives.length; i++)
-                {
-                    if(vm.goalSelected.Objectives[i].Id === objective.Id)
-                    {
-                        vm.goalSelected.Objectives[i] = objective;
-                    }
+            .then(function(){
+                GoalsService.getGoal(vm.goalSelected.Id, success, failure);
+
+
+                function success(result){
+                    vm.goalSelected = result.data;
                 }
-                $mdToast.show(
+
+                function failure(result){
                     $mdToast.simple()
-                        .content("Please select a goal first.")
+                        .content(result.data)
                         .position('bottom right')
                         .hideDelay(2000)
-                );
+                }
+
+                //function
+                //$mdToast.show(
+                //    $mdToast.simple()
+                //        .content("Please select a goal first.")
+                //        .position('bottom right')
+                //        .hideDelay(2000)
+                //);
             });
         }
 
@@ -130,7 +138,6 @@
             );
 
         }
-
 
         function getGoals(){
             GoalsService.getGoals($rootScope.globals.currentUser.userProfileId, moment().startOf('year').toISOString(), moment().endOf('year').toISOString(), handleGoalSuccess, handleFailed)

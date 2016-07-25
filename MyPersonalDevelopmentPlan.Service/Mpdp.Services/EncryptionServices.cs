@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+using Mpdp.Services.Abstract;
 
-namespace Mpdp.Services.Abstract
+namespace Mpdp.Services
 {
-  public class EncryptionService : IEncryptionService
+  public class EncryptionServices : IEncryptionServices
   {
     public string CreateSalt()
     {

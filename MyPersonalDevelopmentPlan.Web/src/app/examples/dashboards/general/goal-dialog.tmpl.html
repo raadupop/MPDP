@@ -107,7 +107,7 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>Estimation</label>
-                        <input type="text" name="remainingEstimation" ng-model="vm.goal.RemainingEstimation | duration" valid-estimation required/>
+                        <input type="text" name="remainingEstimation" ng-model="vm.goal.RemainingEstimates | duration" valid-estimation required/>
                         <div  ng-messages="goal.remainingEstimation.$error">
                             <span ng-message="estimationValidator">Please follow the example.</span>
                         </div>

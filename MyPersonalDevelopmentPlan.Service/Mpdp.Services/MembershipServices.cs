@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Security;
 using Mpdp.Data.Extension;
 using Mpdp.Data.Infrastructure;
@@ -14,25 +12,23 @@ using Mpdp.Services.Utilities;
 
 namespace Mpdp.Services
 {
-  public class MembershipService : IMembershipService
+  public class MembershipServices : IMembershipServices
   {
     #region Variables
     private readonly IEntityBaseRepository<User> _userRepository;
     private readonly IEntityBaseRepository<Role> _roleRepository;
-    private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
     private readonly IEntityBaseRepository<UserRole> _userRoleRepository;
-    private readonly IEncryptionService _encryptionService;
+    private readonly IEncryptionServices _encryptionServices;
     private readonly IUnitOfWork _unitOfWork;
     #endregion
 
-    public MembershipService(IEntityBaseRepository<User> userRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Role> roleRepository,
-       IEntityBaseRepository<UserRole> userRoleRepository, IEncryptionService encryptionService, IUnitOfWork unitOfWork)
+    public MembershipServices(IEntityBaseRepository<User> userRepository, IEntityBaseRepository<Role> roleRepository,
+       IEntityBaseRepository<UserRole> userRoleRepository, IEncryptionServices encryptionServices, IUnitOfWork unitOfWork)
     {
       _userRepository = userRepository;
       _roleRepository = roleRepository;
-      _userProfileRepository = userProfileRepository;
       _userRoleRepository = userRoleRepository;
-      _encryptionService = encryptionService;
+      _encryptionServices = encryptionServices;
       _unitOfWork = unitOfWork;
     }
 
@@ -66,7 +62,7 @@ namespace Mpdp.Services
         throw new Exception("Username is already in use");
       }
 
-      var passwordSalt = _encryptionService.CreateSalt();
+      var passwordSalt = _encryptionServices.CreateSalt();
 
       var user = new User()
       {
@@ -74,7 +70,7 @@ namespace Mpdp.Services
         Salt = passwordSalt,
         Email = email,
         IsLocked = false,
-        HashedPassword = _encryptionService.EncryptPassword(password, passwordSalt),
+        HashedPassword = _encryptionServices.EncryptPassword(password, passwordSalt),
         DateCreated = DateTime.Now,    
       };
 
@@ -100,8 +96,8 @@ namespace Mpdp.Services
 
       if (IsUserValid(existingUser, oldPassword))
       {
-        existingUser.Salt = _encryptionService.CreateSalt();
-        existingUser.HashedPassword = _encryptionService.EncryptPassword(newPassword, existingUser.Salt);
+        existingUser.Salt = _encryptionServices.CreateSalt();
+        existingUser.HashedPassword = _encryptionServices.EncryptPassword(newPassword, existingUser.Salt);
 
         _unitOfWork.Commit();
 
@@ -119,8 +115,8 @@ namespace Mpdp.Services
       if (existingUser == null) return null;
 
       var newPassword = Membership.GeneratePassword(8, 2);
-      existingUser.Salt = _encryptionService.CreateSalt();
-      existingUser.HashedPassword = _encryptionService.EncryptPassword(newPassword, existingUser.Salt);
+      existingUser.Salt = _encryptionServices.CreateSalt();
+      existingUser.HashedPassword = _encryptionServices.EncryptPassword(newPassword, existingUser.Salt);
 
       _unitOfWork.Commit();
 
@@ -168,7 +164,7 @@ namespace Mpdp.Services
 
     private bool IsPasswordValid(User user, string password)
     {
-      return string.Equals(_encryptionService.EncryptPassword(password, user.Salt), user.HashedPassword);
+      return string.Equals(_encryptionServices.EncryptPassword(password, user.Salt), user.HashedPassword);
     }
 
     private bool IsUserValid(User user, string password)

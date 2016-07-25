@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mpdp.Services.Abstract
 {
-  public interface IEncryptionService
+  public interface IEncryptionServices
   {
     string CreateSalt();
     string EncryptPassword(string password, string salt);

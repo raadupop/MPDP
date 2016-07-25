@@ -6,9 +6,9 @@ namespace Mpdp.Api.Infrastructure.Extension
 {
   public static class RequestMessageExtensions
   {
-    internal static IMembershipService GetMembershipService(this HttpRequestMessage request)
+    internal static IMembershipServices GetMembershipService(this HttpRequestMessage request)
     {
-      return request.GetService<IMembershipService>();
+      return request.GetService<IMembershipServices>();
     }
 
     private static TService GetService<TService>(this HttpRequestMessage request)

@@ -24,7 +24,6 @@
         service.getGoal = getGoal;
 
         return service;
-        ///
 
         function getGoals(userId, startDate, endDate, success, failed){
             var config = {
@@ -57,9 +56,9 @@
             ApiWebService.post(ApiConfig + 'goal/createobjective', objective, success, failed);
         }
 
-        function saveWorkedLog(woorkedLod, success, failed){
-            woorkedLod.Duration = estimationTimeSpanWrapper(woorkedLod.Duration);
-            ApiWebService.post(ApiConfig + 'goal/addworkedlog', woorkedLod, success, failed);
+        function saveWorkedLog(woorkedLog, success, failed){
+            woorkedLog.Duration = estimationTimeSpanWrapper(woorkedLog.Duration);
+            ApiWebService.post(ApiConfig + 'effortlogging/addworkedlog', woorkedLog, success, failed);
         }
 
         function deleteGoal(goal, success, failed){

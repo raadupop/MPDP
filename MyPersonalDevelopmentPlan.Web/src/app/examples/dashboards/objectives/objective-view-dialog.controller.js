@@ -47,7 +47,7 @@
                     .position('bottom right')
                     .hideDelay(5000)
             );
-            $mdDialog.hide(result.data);
+            $mdDialog.hide();
         }
 
         function handleFailed(){

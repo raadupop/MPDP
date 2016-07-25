@@ -41,11 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IMembershipService.cs" />
-    <Compile Include="EncryptionService.cs" />
-    <Compile Include="Abstract\IEncryptionService.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="MembershipService.cs" />
+    <Compile Include="Abstract\IEffortLoggingServices.cs" />
+    <Compile Include="Abstract\IMembershipServices.cs" />
+    <Compile Include="EffortLoggingServices.cs" />
+    <Compile Include="EncryptionServices.cs" />
+    <Compile Include="Abstract\IEncryptionServices.cs" />
+    <Compile Include="MembershipServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\MembershipContext.cs" />
   </ItemGroup>

@@ -39,9 +39,11 @@ namespace Mpdp.Api
       builder.RegisterGeneric(typeof (EntityBaseRepository<>)).As(typeof(IEntityBaseRepository<>)).InstancePerDependency();
 
       // Services 
-      builder.RegisterType<EncryptionService>().As<IEncryptionService>().InstancePerRequest();
+      builder.RegisterType<EncryptionServices>().As<IEncryptionServices>().InstancePerRequest();
 
-      builder.RegisterType<MembershipService>().As<IMembershipService>().InstancePerRequest();
+      builder.RegisterType<MembershipServices>().As<IMembershipServices>().InstancePerRequest();
+
+      builder.RegisterType<EffortLoggingServices>().As<IEffortLoggingServices>().InstancePerRequest();
 
       Contiainer = builder.Build();
       return Contiainer;

@@ -20,13 +20,12 @@ namespace Mpdp.Api.Controllers
     private readonly IEntityBaseRepository<Goal> _goalRepository;
     private readonly IEntityBaseRepository<Objective> _objectiveRepository; 
     private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
-    private readonly IEntityBaseRepository<WorkedLog> _workedLogRepository; 
-    public GoalController(IEntityBaseRepository<WorkedLog> workedLogRepository, IEntityBaseRepository<Objective> objectiveRepository, IEntityBaseRepository<Goal> goalRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
+
+    public GoalController(IEntityBaseRepository<Objective> objectiveRepository, IEntityBaseRepository<Goal> goalRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
     {
       _goalRepository = goalRepository;
       _userProfileRepository = userProfileRepository;
       _objectiveRepository = objectiveRepository;
-      _workedLogRepository = workedLogRepository;
     }
 
     [HttpPost]
@@ -80,9 +79,8 @@ namespace Mpdp.Api.Controllers
           {
             _objectiveRepository.Delete(g);
           }
-
+        
           _unitOfWork.Commit();
-
 
           _goalRepository.Delete(goalToDelete);
           _unitOfWork.Commit();
@@ -305,51 +303,5 @@ namespace Mpdp.Api.Controllers
         return response;
       });
     }
-
-    [HttpPost]
-    [Route("addWorkedLog")]
-    public HttpResponseMessage AddWorkedLog(HttpRequestMessage request, WorkedLogViewModel workedLogViewModel)
-    {
-      return CreateHttpResponse(request, () =>
-      {
-        HttpResponseMessage response;
-
-        if (!ModelState.IsValid)
-        {
-          response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-        }
-        else
-        {
-          var objective = _objectiveRepository.GetSingle(workedLogViewModel.ObjectiveId);
-
-          if (objective == null)
-          {
-            response = request.CreateErrorResponse(HttpStatusCode.NotFound, "Objective isn't exist");
-          }
-          else
-          {
-            var workedLog = Mapper.Map<WorkedLogViewModel, WorkedLog>(workedLogViewModel);
-            workedLog.LogDate = DateTime.Now;
-
-            _workedLogRepository.Add(workedLog);
-            _unitOfWork.Commit();
-
-            objective.WorkedLogs.Add(workedLog);
-            objective.RemainingEstimates = objective.RemainingEstimates - workedLog.Duration;
-            _objectiveRepository.Edit(objective);
-            _unitOfWork.Commit();
-
-            var objectiveVm = Mapper.Map<Objective, ObjectiveViewModel>(objective);
-            response = request.CreateResponse(HttpStatusCode.OK, objectiveVm);
-          }
-        }
-
-        return response;
-      });
-
-
-    }
-
-
   }
 }

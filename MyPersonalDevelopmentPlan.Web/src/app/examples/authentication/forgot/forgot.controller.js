@@ -21,7 +21,6 @@
 
             ApiWebService.put(ApiConfig + 'account/recoverpassword?email=' + vm.user.email, data, success, failed);
 
-
             function success(result){
                 $mdToast.show(
                     $mdToast.simple()

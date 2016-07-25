@@ -15,12 +15,12 @@ namespace Mpdp.Api.Controllers
 {
   public class AccountController : ApiBaseController
   {
-    private readonly IMembershipService _membershipService;
+    private readonly IMembershipServices _membershipServices;
     private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
 
-    public AccountController(IMembershipService membershipService, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
+    public AccountController(IMembershipServices membershipServices, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
     {
-      _membershipService = membershipService;
+      _membershipServices = membershipServices;
       _userProfileRepository = userProfileRepository;
     }
 
@@ -34,7 +34,7 @@ namespace Mpdp.Api.Controllers
 
         if (ModelState.IsValid)
         {
-          MembershipContext userContext = _membershipService.ValidateUser(user.Username, user.Password);
+          MembershipContext userContext = _membershipServices.ValidateUser(user.Username, user.Password);
 
           if (userContext.User != null)
           {
@@ -75,7 +75,7 @@ namespace Mpdp.Api.Controllers
        else
        {
 
-         User newUser = _membershipService.CreateUser(user.Username, user.Email, user.Password, new[] { 2 });
+         User newUser = _membershipServices.CreateUser(user.Username, user.Email, user.Password, new[] { 2 });
 
          if (newUser != null)
          {
@@ -107,7 +107,7 @@ namespace Mpdp.Api.Controllers
         {
           respone = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
         }
-        else if (_membershipService.UpdatePassword(passwordVm.Username, passwordVm.CurrentPassword, passwordVm.NewPassword) == false)
+        else if (_membershipServices.UpdatePassword(passwordVm.Username, passwordVm.CurrentPassword, passwordVm.NewPassword) == false)
         {
           respone = request.CreateErrorResponse(HttpStatusCode.BadGateway, "Invalid username or password");
         }
@@ -132,7 +132,7 @@ namespace Mpdp.Api.Controllers
         if (email != null)
         {
           //todo: rollback in case that the e-mail was not sent. Implementation with using statement to be disposable 
-          var newPassword = _membershipService.ResetPassword(email);
+          var newPassword = _membershipServices.ResetPassword(email);
 
           if (newPassword != null)
           {
