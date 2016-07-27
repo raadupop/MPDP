@@ -6,7 +6,7 @@
         .controller('ObjectiveViewController', GoalDialogController);
 
     /* @ngInject */
-    function GoalDialogController($scope, $window, $mdDialog, objective, GoalsService, $mdToast) {
+    function GoalDialogController($window, $mdDialog, objective, GoalsService, $mdToast) {
         var vm = this;
         vm.cancelClick = cancelClick;
         vm.okClick = okClick;
@@ -50,10 +50,10 @@
             $mdDialog.hide();
         }
 
-        function handleFailed(){
+        function handleFailed(result){
             $mdToast.show(
                 $mdToast.simple()
-                    .content('Ops something goes wrong, try again')
+                    .content(result.data)
                     .position('bottom right')
                     .hideDelay(5000)
             );

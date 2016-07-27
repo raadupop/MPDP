@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,14 +10,13 @@ using Mpdp.Api.Models;
 using Mpdp.Data.Infrastructure;
 using Mpdp.Data.Repositories;
 using Mpdp.Entities;
-using Mpdp.Services.Abstract;
 
 namespace Mpdp.Api.Controllers
 {
   public class GoalController : ApiBaseController
   {
     private readonly IEntityBaseRepository<Goal> _goalRepository;
-    private readonly IEntityBaseRepository<Objective> _objectiveRepository; 
+    private readonly IEntityBaseRepository<Objective> _objectiveRepository;
     private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
 
     public GoalController(IEntityBaseRepository<Objective> objectiveRepository, IEntityBaseRepository<Goal> goalRepository, IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
@@ -42,7 +40,7 @@ namespace Mpdp.Api.Controllers
         else
         {
           Goal newGoal = new Goal();
-          
+
           newGoal.CreateGoal(goal);
 
           //Asign goal to a user
@@ -79,7 +77,7 @@ namespace Mpdp.Api.Controllers
           {
             _objectiveRepository.Delete(g);
           }
-        
+
           _unitOfWork.Commit();
 
           _goalRepository.Delete(goalToDelete);
@@ -134,21 +132,21 @@ namespace Mpdp.Api.Controllers
       return CreateHttpResponse(request, () =>
       {
         HttpResponseMessage response;
-        
-          var userProfile = _userProfileRepository.GetSingle(userId);
-          if (userProfile == null)
-          {
-            response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid user profile id");
-          }
-          else
-          {
-            var userGoals = _goalRepository.GetAll().Where(g => g.UserProfile.Id == userId && g.DateCreated > startDate && g.DateCreated < endDate);
-            IEnumerable<GoalViewModel> goalsVm = Mapper.Map<IEnumerable<Goal>, IEnumerable<GoalViewModel>>(userGoals);
 
-            var goalViewModels = goalsVm as IList<GoalViewModel> ?? goalsVm.ToList();
-            response = request.CreateResponse(HttpStatusCode.OK, new { goals = goalViewModels, goalsCount = goalViewModels.Count() });
-          }
-   
+        var userProfile = _userProfileRepository.GetSingle(userId);
+        if (userProfile == null)
+        {
+          response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid user profile id");
+        }
+        else
+        {
+          var userGoals = _goalRepository.GetAll().Where(g => g.UserProfile.Id == userId && g.DateCreated > startDate && g.DateCreated < endDate);
+          IEnumerable<GoalViewModel> goalsVm = Mapper.Map<IEnumerable<Goal>, IEnumerable<GoalViewModel>>(userGoals);
+
+          var goalViewModels = goalsVm as IList<GoalViewModel> ?? goalsVm.ToList();
+          response = request.CreateResponse(HttpStatusCode.OK, new { goals = goalViewModels, goalsCount = goalViewModels.Count() });
+        }
+
         return response;
       });
     }
@@ -235,8 +233,9 @@ namespace Mpdp.Api.Controllers
       });
     }
 
+    //todo: wrap the business logic into a new services
     [HttpPost]
-    [Route ("createobjective")]
+    [Route("createobjective")]
     public HttpResponseMessage CreateObjective(HttpRequestMessage request, ObjectiveViewModel objectiveVm)
     {
       return CreateHttpResponse(request, () =>
@@ -255,22 +254,35 @@ namespace Mpdp.Api.Controllers
           {
             response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid goalId provided");
           }
+          else if (objectiveVm.Estimation > goal.RemainingEstimates)
+          {
+            response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "You don't have physical time to accomplish this objective according to the goal remaining estimates. Please add an extra effort time to your goal.");
+          }
           else
           {
-            Objective newObjective = new Objective();
-            newObjective.CreateObjective(objectiveVm);
-            newObjective.Goal = goal;
+            TimeSpan totalObjectiveEstimate = goal.Objectives.Aggregate(TimeSpan.Zero, (current, objective) => current + objective.Estimation);
 
-            _objectiveRepository.Add(newObjective);
-            _unitOfWork.Commit();
+            if (objectiveVm.Estimation > (goal.Estimation - totalObjectiveEstimate))
+            {
+              response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "You don't have physical time to accomplish this objective according to the goal remaining estimates. Please add an extra effort time to your goal.");
+            }
+            else
+            {
+              Objective newObjective = new Objective();
+              newObjective.CreateObjective(objectiveVm);
+              newObjective.Goal = goal;
 
-            //Update the goal 
-            goal.Objectives.Add(newObjective);
-            _goalRepository.Edit(goal);
-            _unitOfWork.Commit();
+              _objectiveRepository.Add(newObjective);
+              _unitOfWork.Commit();
 
-            objectiveVm = Mapper.Map<Objective, ObjectiveViewModel>(newObjective);
-            response = request.CreateResponse(HttpStatusCode.OK, objectiveVm);
+              //Update the goal 
+              goal.Objectives.Add(newObjective);
+              _goalRepository.Edit(goal);
+              _unitOfWork.Commit();
+
+              objectiveVm = Mapper.Map<Objective, ObjectiveViewModel>(newObjective);
+              response = request.CreateResponse(HttpStatusCode.OK, objectiveVm);
+            }
           }
         }
 

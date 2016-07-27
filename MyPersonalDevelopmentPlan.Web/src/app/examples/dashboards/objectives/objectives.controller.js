@@ -5,6 +5,7 @@
         .module('app.examples.dashboards')
         .controller('DashboardObjectivesController', ObjectivesController);
 
+    //todo: declare and handle the success and failed operation much cleaner
     /* @ngInject */
     function ObjectivesController($rootScope, $mdToast, GoalsService, $scope, $mdDialog) {
         var vm = this;
@@ -26,7 +27,6 @@
         vm.getGoals = getGoals;
         vm.goalStatus = ['Open', 'Blocked', 'InProgress', 'ReadyToBeDone', 'Done', 'Closed',  'StandBy'];
         vm.goalSelected = null;
-        // create filterable data structure for icons
 
         vm.selectGoal = function(goal) {
             vm.goalSelected = goal;
@@ -42,6 +42,7 @@
                 })
                 .then(function(objective) {
                         objective.goalId = vm.goalSelected.Id;
+                        //todo: move thi on the delegate controller - ObjectiveDialogController
                         GoalsService.addObjective(objective, handleObjectiveSuccess, handleFailed);
                 });
             }
@@ -80,19 +81,10 @@
                         .position('bottom right')
                         .hideDelay(2000)
                 }
-
-                //function
-                //$mdToast.show(
-                //    $mdToast.simple()
-                //        .content("Please select a goal first.")
-                //        .position('bottom right')
-                //        .hideDelay(2000)
-                //);
             });
         }
 
         function removeObjective(objective, ev) {
-            // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.confirm()
                 .title('Are you sure that you want to delete this objective?')
                 .textContent('The objective will be not recovered.')
@@ -100,15 +92,15 @@
                 .targetEvent(ev)
                 .ok('Delete')
                 .cancel('Cancel');
+
             $mdDialog.show(confirm).then(function() {
                 GoalsService.deleteObjective(objective, deleteObjectiveSuccess, handleFailed);
             }, function() {
-                $scope.status = 'You decided to keep your debt.';
+                $scope.status = '';
             });
         }
 
         function deleteObjectiveSuccess(){
-
             $mdToast.show(
                 $mdToast.simple()
                     .content('Updating list of objectives')
@@ -136,7 +128,6 @@
                     .position('bottom right')
                     .hideDelay(6000)
             );
-
         }
 
         function getGoals(){
@@ -158,14 +149,15 @@
             vm.goalSelected.Objectives.push(result.data);
         }
 
-        function handleFailed(){
+        function handleFailed(result){
             $mdToast.show(
                 $mdToast.simple()
-                    .content("Something goes wrong")
+                    .content(result.data.Message)
                     .position('bottom right')
-                    .hideDelay(2000)
+                    .hideDelay(7500)
             );
         }
+
         //init
         getGoals();
     }
