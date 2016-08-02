@@ -42,8 +42,8 @@
 
         function handleSuccess(result){
             $mdToast.show(
-                $mdToast.simple()
-                    .content('The action was finished with Success')
+                $mdToast.simple(result.data)
+                    .content()
                     .position('bottom right')
                     .hideDelay(5000)
             );
@@ -53,7 +53,7 @@
         function handleFailed(result){
             $mdToast.show(
                 $mdToast.simple()
-                    .content(result.data)
+                    .content(result.data.Message)
                     .position('bottom right')
                     .hideDelay(5000)
             );

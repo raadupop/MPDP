@@ -99,14 +99,14 @@
                         <textarea rows="4" ng-model="vm.goal.Description" required/>
                     </md-input-container>
                     <md-input-container class="md-block">
-                        <label>Estimation</label>
+                        <label>Estimate</label>
                         <input type="text" name="estimation" ng-model="vm.goal.Estimation | duration" valid-estimation required/>
                         <div  ng-messages="goal.estimation.$error">
                             <span ng-message="estimationValidator">Please follow the example.</span>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
-                        <label>Estimation</label>
+                        <label>Remaning estimate</label>
                         <input type="text" name="remainingEstimation" ng-model="vm.goal.RemainingEstimates | duration" valid-estimation required/>
                         <div  ng-messages="goal.remainingEstimation.$error">
                             <span ng-message="estimationValidator">Please follow the example.</span>

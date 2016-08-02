@@ -14,19 +14,19 @@ namespace Mpdp.Api.Infrastructure.MessageHandlers
 {
   public class MpdpAuthHandler : DelegatingHandler
   {
-    private IEnumerable<string> authHeadervalues = null;
+    private IEnumerable<string> _authHeadervalues;
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token)
     {
       try
       {
-        request.Headers.TryGetValues("Authorization", out authHeadervalues);
-        if (authHeadervalues == null)
+        request.Headers.TryGetValues("Authorization", out _authHeadervalues);
+        if (_authHeadervalues == null)
         {
           return base.SendAsync(request, token); // cros fingers
         }
 
-        var tokens = authHeadervalues.FirstOrDefault();
+        var tokens = _authHeadervalues.FirstOrDefault();
         tokens = tokens.Replace("Basic", "").Trim();
         if (!string.IsNullOrEmpty(tokens))
         {

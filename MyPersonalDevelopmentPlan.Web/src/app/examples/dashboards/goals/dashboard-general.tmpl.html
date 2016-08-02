@@ -67,6 +67,7 @@
                         <th name="Remaining estimation" order-by="RemainingEstimates"></th>
                         <th name="Details"></th>
                         <th name="Remove"></th>
+                        <th name="Add time"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -88,6 +89,11 @@
                         <td>
                             <md-button ng-click="vm.removeGoal(goal, $event)" class="md-icon-button" aria-label="Open Goal">
                                 <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                            </md-button>
+                        </td>
+                        <td>
+                            <md-button ng-click="vm.addExtraTimeEstimate(goal, $event)" class="md-icon-button" aria-label="Add time">
+                                <md-icon md-font-icon="zmdi zmdi-time"></md-icon>
                             </md-button>
                         </td>
                     </tr>

@@ -87,7 +87,7 @@
             ApiWebService.get(ApiConfig + 'goal/getgoal', config, success, failed)
         }
 
-        //todo make own service for this
+        //todo make own services for this
         function estimationTimeSpanWrapper(duration){
 
             var mrx = new RegExp(/([0-9][0-9]?)[ ]?m/);

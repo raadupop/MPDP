@@ -6,7 +6,7 @@
         .controller('DashboardAnalyticsController', DashboardAnalyticsController);
 
     /* @ngInject */
-    function DashboardAnalyticsController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function DashboardAnalyticsController($timeout, $mdToast, $rootScope, $state) {
         $timeout(function() {
             $rootScope.$broadcast('newMailNotification');
             $mdToast.show({

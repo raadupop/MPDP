@@ -70,14 +70,13 @@
             .then(function(){
                 GoalsService.getGoal(vm.goalSelected.Id, success, failure);
 
-
                 function success(result){
                     vm.goalSelected = result.data;
                 }
 
                 function failure(result){
                     $mdToast.simple()
-                        .content(result.data)
+                        .content(result.data.Message)
                         .position('bottom right')
                         .hideDelay(2000)
                 }
@@ -141,11 +140,6 @@
 
 
         function handleObjectiveSuccess(result){
-            //for(var i=0; i < vm.goalsResult.goals.length; i++){
-            //    if(vm.goalsResult.goals[i] === vm.goalSelected){
-            //        vm.goalsResult.goals[i].objectives.push(result.data);
-            //    }
-            //}
             vm.goalSelected.Objectives.push(result.data);
         }
 

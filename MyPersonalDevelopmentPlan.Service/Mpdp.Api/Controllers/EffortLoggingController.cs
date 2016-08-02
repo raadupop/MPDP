@@ -12,14 +12,10 @@ namespace Mpdp.Api.Controllers
 {
   public class EffortLoggingController : ApiBaseController
   {
-    private readonly IEntityBaseRepository<Objective> _objectiveRepository;
-    private readonly IEntityBaseRepository<WorkedLog> _workedLogRepository;
     private readonly IEffortLoggingServices _effortLoggingServices; 
 
     public EffortLoggingController(IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork, IEntityBaseRepository<Objective> objectiveRepository, IEntityBaseRepository<WorkedLog> workedLogRepository, IEffortLoggingServices effortLoggingServices) : base(errorsRepository, unitOfWork)
     {
-      _objectiveRepository = objectiveRepository;
-      _workedLogRepository = workedLogRepository;
       _effortLoggingServices = effortLoggingServices;
     }
 
@@ -41,11 +37,11 @@ namespace Mpdp.Api.Controllers
 
           if (!_effortLoggingServices.SaveWorkedLog(workedLog))
           {
-            response = request.CreateErrorResponse(HttpStatusCode.BadRequest, "");
+            response = request.CreateErrorResponse(HttpStatusCode.NotFound, "Goal could not be found");
           }
           else
           {
-            response = request.CreateResponse(HttpStatusCode.NoContent);
+            response = request.CreateResponse(HttpStatusCode.OK, "Your work time was added with success");
           }
         }
 

@@ -44,8 +44,6 @@
             GoalsService.addGoal(goalToSend, goalSucceded, goalFailed)
         }
 
-
-
         function goalSucceded(){
             $mdDialog.hide();
         }

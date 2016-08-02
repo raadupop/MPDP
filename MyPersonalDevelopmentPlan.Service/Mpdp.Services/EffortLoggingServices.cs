@@ -11,7 +11,7 @@ namespace Mpdp.Services
     private readonly IEntityBaseRepository<Objective> _objectiveRepository;
     private readonly IEntityBaseRepository<WorkedLog> _workedLogRepository;
     private readonly IEntityBaseRepository<Goal> _goalRepository;
-    private readonly IUnitOfWork _unitOfWork;  
+    private readonly IUnitOfWork _unitOfWork;
 
     public EffortLoggingServices(IEntityBaseRepository<Objective> objectiveRepository, IEntityBaseRepository<WorkedLog> workedLogRepository, IUnitOfWork unitOfWork, IEntityBaseRepository<Goal> goalRepository)
     {
@@ -26,11 +26,8 @@ namespace Mpdp.Services
     public bool SaveWorkedLog(WorkedLog workedLog)
     {
       var objective = _objectiveRepository.GetSingle(workedLog.ObjectiveId);
-      
-      // Todo: Crosscutting concerns. Should track an exception handling
-      var estimationTimeDifference = objective ? .RemainingEstimates.Ticks - workedLog.Duration.Ticks;
 
-      if (estimationTimeDifference > 0)
+      if (objective != null)
       {
         workedLog.LogDate = workedLog.LogDate;
 
@@ -38,11 +35,9 @@ namespace Mpdp.Services
         _unitOfWork.Commit();
 
         UpdateEstimation(objective, workedLog.Duration);
-
-        return true;
       }
 
-      return false;
+      return true;
     }
 
     public bool AddExtraEffort()
@@ -55,10 +50,15 @@ namespace Mpdp.Services
 
     private void UpdateEstimation(Objective objective, TimeSpan duration)
     {
-      objective.RemainingEstimates = objective.RemainingEstimates - duration;
+      var objectiveDifference = objective.RemainingEstimates - duration;
+
+      objective.RemainingEstimates = objectiveDifference < TimeSpan.Zero ? TimeSpan.Zero : objectiveDifference;
+      
       var goal = _goalRepository.GetSingle(objective.GoalId);
 
-      goal.RemainingEstimates = goal.RemainingEstimates - duration;
+      var goaldDifference = goal.RemainingEstimates - duration;
+
+      goal.RemainingEstimates = goaldDifference < TimeSpan.Zero ? TimeSpan.Zero : goaldDifference;
 
       _objectiveRepository.Edit(objective);
       _unitOfWork.Commit();

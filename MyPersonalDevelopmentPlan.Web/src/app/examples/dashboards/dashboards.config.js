@@ -79,15 +79,15 @@
                 controllerAs: 'vm'
             })
             .state('triangular.admin-default.dashboard-general', {
-                url: '/dashboards/general',
+                url: '/dashboards/goals',
                 views: {
                     '': {
-                        templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html',
+                        templateUrl: 'app/examples/dashboards/goals/dashboard-general.tmpl.html',
                         controller: 'DashboardGeneralController',
                         controllerAs: 'vm'
                     },
                     'belowContent': {
-                        templateUrl: 'app/examples/dashboards/general/fab-button.tmpl.html',
+                        templateUrl: 'app/examples/dashboards/goals/fab-button.tmpl.html',
                         controller: 'GoalsFabController',
                         controllerAs: 'vm'
                     }

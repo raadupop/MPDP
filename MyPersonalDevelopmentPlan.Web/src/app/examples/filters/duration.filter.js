@@ -13,7 +13,7 @@
         return DurationFilter;
 
         function DurationFilter(value){
-            var duration = moment.duration(value)
+            var duration = moment.duration(value);
 
             duration = duration.days() + 'd ' + duration.hours() +'h ' + duration.minutes() + 'm';
 

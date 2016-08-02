@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.ModelBinding.Binders;
@@ -36,7 +34,6 @@ namespace Mpdp.Api
           routeTemplate: "api/{controller}/{id}",
           defaults: new { id = RouteParameter.Optional }
       );
-
     }
   }
 }

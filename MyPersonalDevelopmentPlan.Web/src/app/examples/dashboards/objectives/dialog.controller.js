@@ -6,7 +6,7 @@
         .controller('ObjectiveDialogController', DialogController);
 
     /* @ngInject */
-    function DialogController($state, $mdDialog) {
+    function DialogController($mdDialog) {
         var vm = this;
         vm.cancel = cancel;
         vm.hide = hide;

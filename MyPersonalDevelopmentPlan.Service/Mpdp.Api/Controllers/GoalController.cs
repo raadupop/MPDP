@@ -13,6 +13,7 @@ using Mpdp.Entities;
 
 namespace Mpdp.Api.Controllers
 {
+  //todo: Separate goal feature to the objective 
   public class GoalController : ApiBaseController
   {
     private readonly IEntityBaseRepository<Goal> _goalRepository;
@@ -309,10 +310,38 @@ namespace Mpdp.Api.Controllers
           _objectiveRepository.Edit(objective);
           _unitOfWork.Commit();
 
-          response = request.CreateResponse(HttpStatusCode.Created, objectiveVm);
+          response = request.CreateResponse(HttpStatusCode.OK, "Goal was updated with success");
         }
 
         return response;
+      });
+    }
+
+    [HttpPut]
+    public HttpResponseMessage AddExtraTime(HttpRequestMessage reqeuest, [FromUri] int goalId, [FromUri] TimeSpan time)
+    {
+      return CreateHttpResponse(reqeuest, () =>
+      {
+        HttpResponseMessage respone;
+
+        Goal goal = _goalRepository.GetSingle(goalId);
+
+        if (goal == null)
+        {
+          respone = reqeuest.CreateErrorResponse(HttpStatusCode.NotFound, "Goal was not found");
+        }
+        else
+        {
+          goal.Estimation += time;
+          goal.RemainingEstimates += time;
+
+          _goalRepository.Edit(goal);
+          _unitOfWork.Commit();
+
+          respone = reqeuest.CreateResponse(HttpStatusCode.NoContent, "Time was added with success");
+        }
+
+        return respone;
       });
     }
   }
