@@ -49,8 +49,8 @@
             });
 
             $scope.lineChart = {
-                labels: ['January', 'February', 'March', 'April', 'May'],
-                series: ['Pageviews', 'Visits', 'Sign ups'],
+                labels: ['May', 'June', 'July', 'August', 'September'],
+                series: ['Efficiency', 'Worked time', 'Success rate'],
                 options: {
                     datasetFill: false,
                     responsive: true
@@ -70,7 +70,7 @@
             }
 
             // Simulate async data update
-            $scope.intervalPromise = $interval(randomData, 5000);
+            //$scope.intervalPromise = $interval(randomData, 5000);
         }
     }
 })();

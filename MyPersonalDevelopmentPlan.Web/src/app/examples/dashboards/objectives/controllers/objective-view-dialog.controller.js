@@ -16,7 +16,7 @@
         };
         vm.printClick = printClick;
         vm.updateClick = updateClick;
-        vm.saveLogClick = saveLogClick;
+        vm.addTimeWorking = addTimeWorking;
 
         ////////////////
 
@@ -32,7 +32,10 @@
             $window.print();
         }
 
-        function saveLogClick(){
+        function addTimeWorking(){
+            if (vm.workedLog.DateRecorded != null){
+                vm.workedLog.DateLog = moment(vm.workedLog.DateRecorded).toISOString();
+            }
             GoalsService.saveWorkedLog(vm.workedLog, handleSuccess, handleFailed)
         }
 
@@ -42,8 +45,8 @@
 
         function handleSuccess(result){
             $mdToast.show(
-                $mdToast.simple(result.data)
-                    .content()
+                $mdToast.simple()
+                    .content(result.data)
                     .position('bottom right')
                     .hideDelay(5000)
             );

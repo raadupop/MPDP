@@ -155,10 +155,10 @@
                             <input type="text" ng-model="vm.workedLog.Description" required/>
                         </md-input-container>
                         <div layout="row" layout-align="start">
-                            <md-datepicker style="margin-left: -12px;" layout-align="center" ng-model="vm.workedLog.DateLog" md-placeholder="Date" required=""></md-datepicker>
+                            <md-datepicker style="margin-left: -12px;" layout-align="center" ng-model="vm.workedLog.DateRecorded"  datetime="yyyy-MM-dd HH:mm:ss" md-placeholder="Date" required=""></md-datepicker>
                         </div>
                         <div layout="row" layout-align="end center">
-                            <md-button class="md-primary" ng-click="vm.saveLogClick()" ng-disabled="workedlogs.$invalid">Save</md-button>
+                            <md-button class="md-primary" ng-click="vm.addTimeWorking()" ng-disabled="workedlogs.$invalid">Save</md-button>
                             <md-button ng-click="vm.cancelClick()">Cancel</md-button>
                         </div>
                     </form>

@@ -35,7 +35,7 @@
         $scope.$on('addObjective', function( ev ){
             if(vm.goalSelected != null){
                 $mdDialog.show({
-                    templateUrl: 'app/examples/dashboards/objectives/add-objective-dialog.tmpl.html',
+                    templateUrl: 'app/examples/dashboards/objectives/views/add-objective-dialog.tmpl.html',
                     targetEvent: ev,
                     controller: 'ObjectiveDialogController',
                     controllerAs: 'vm'
@@ -59,7 +59,7 @@
         function openObjective(objective, $event)
         {
             $mdDialog.show({
-                templateUrl: 'app/examples/dashboards/objectives/objective-view-dialog.tmpl.html',
+                templateUrl: 'app/examples/dashboards/objectives/views/objective-view-dialog.tmpl.html',
                 targetEvent: $event,
                 controller: 'ObjectiveViewController',
                 controllerAs: 'vm',
@@ -137,7 +137,6 @@
             vm.goalsResult.goals = result.data.goals;
             vm.goalsResult.goalsCount = result.data.goalsCount;
         }
-
 
         function handleObjectiveSuccess(result){
             vm.goalSelected.Objectives.push(result.data);

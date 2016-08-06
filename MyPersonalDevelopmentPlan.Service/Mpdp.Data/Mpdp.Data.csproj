@@ -124,6 +124,10 @@
     <Compile Include="Migrations\201606051326476_WorkedLogs changes.Designer.cs">
       <DependentUpon>201606051326476_WorkedLogs changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608062254194_Property rename.cs" />
+    <Compile Include="Migrations\201608062254194_Property rename.Designer.cs">
+      <DependentUpon>201608062254194_Property rename.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MpdpContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606051326476_WorkedLogs changes.resx">
       <DependentUpon>201606051326476_WorkedLogs changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608062254194_Property rename.resx">
+      <DependentUpon>201608062254194_Property rename.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

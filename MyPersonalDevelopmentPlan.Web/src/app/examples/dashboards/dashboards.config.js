@@ -98,17 +98,17 @@
                 cache: false,
                 views: {
                     '':  {
-                        templateUrl: 'app/examples/dashboards/objectives/objectives.tmpl.html',
+                        templateUrl: 'app/examples/dashboards/objectives/views/objectives.tmpl.html',
                         controller: 'DashboardObjectivesController',
                         controllerAs: 'vm'
                     },
                     'belowContent': {
-                        templateUrl: 'app/examples/dashboards/objectives/fab-button.tmpl.html',
+                        templateUrl: 'app/examples/dashboards/objectives/views/fab-button.tmpl.html',
                         controller: 'ObjectiveFabController',
                         controllerAs: 'vm'
                     },
                     'content': {
-                        templateUrl: 'app/examples/dashboards/objectives/fab-button.tmpl.html',
+                        templateUrl: 'app/examples/dashboards/objectives/views/fab-button.tmpl.html',
                         controller: 'ObjectiveFabController',
                         controllerAs: 'vm'
                     }

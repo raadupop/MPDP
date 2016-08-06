@@ -27,7 +27,5 @@
         function cancel() {
             $mdDialog.cancel();
         }
-
-
     }
 })();

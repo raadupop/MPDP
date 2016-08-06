@@ -53,7 +53,6 @@
         }
 
         function deleteData(url, config, success, failure){
-            config = config || "";
             return $http.delete(url, config)
                 .then(function (result){
                     success(result);

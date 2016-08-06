@@ -29,7 +29,7 @@ namespace Mpdp.Services
 
       if (objective != null)
       {
-        workedLog.LogDate = workedLog.LogDate;
+        workedLog.DateRecorded = workedLog.DateRecorded;
 
         _workedLogRepository.Add(workedLog);
         _unitOfWork.Commit();
@@ -53,16 +53,16 @@ namespace Mpdp.Services
       var objectiveDifference = objective.RemainingEstimates - duration;
 
       objective.RemainingEstimates = objectiveDifference < TimeSpan.Zero ? TimeSpan.Zero : objectiveDifference;
-      
+
+      _objectiveRepository.Edit(objective);
+      _unitOfWork.Commit();
+
       var goal = _goalRepository.GetSingle(objective.GoalId);
 
       var goaldDifference = goal.RemainingEstimates - duration;
 
       goal.RemainingEstimates = goaldDifference < TimeSpan.Zero ? TimeSpan.Zero : goaldDifference;
-
-      _objectiveRepository.Edit(objective);
-      _unitOfWork.Commit();
-
+      
       _goalRepository.Edit(goal);
       _unitOfWork.Commit();
     }
