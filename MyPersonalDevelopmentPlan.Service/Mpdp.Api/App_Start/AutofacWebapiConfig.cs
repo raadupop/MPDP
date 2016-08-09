@@ -45,6 +45,8 @@ namespace Mpdp.Api
 
       builder.RegisterType<EffortLoggingServices>().As<IEffortLoggingServices>().InstancePerRequest();
 
+      builder.RegisterType<AnalyticsServices>().As<IAnalyticsServices>().InstancePerDependency();
+
       Contiainer = builder.Build();
       return Contiainer;
     }

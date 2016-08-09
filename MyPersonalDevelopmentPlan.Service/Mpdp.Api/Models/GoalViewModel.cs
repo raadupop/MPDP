@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using FluentValidation;
-using FluentValidation.Results;
-using Mpdp.Api.Infrastructure.Validators;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Mpdp.Api.Infrastructure.Validators;
 using Mpdp.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
-using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace Mpdp.Api.Models
 {
@@ -33,6 +28,8 @@ namespace Mpdp.Api.Models
     public TimeSpan Estimation { get; set; }
 
     public TimeSpan RemainingEstimates { get; set; }
+
+    public TimeSpan TimeLogged { get; set; }
 
     [JsonConverter(typeof(StringEnumConverter))]
     public Status GoalStatus { get; set; }

@@ -6,10 +6,11 @@
         .controller('ObjectiveDialogController', DialogController);
 
     /* @ngInject */
-    function DialogController($mdDialog) {
+    function DialogController($mdDialog, $mdToast, goalId, GoalsService) {
         var vm = this;
         vm.cancel = cancel;
         vm.hide = hide;
+        vm.createObjective = createObjective;
         vm.objective = {
             goalId: null,
             title: '',
@@ -20,8 +21,27 @@
 
         /////////////////////////
 
+        function createObjective(){
+            vm.objective.goalId = goalId;
+
+            GoalsService.addObjective(vm.objective, handleObjectiveSuccess, handleFailed);
+
+            function handleFailed(result){
+                $mdToast.show(
+                    $mdToast.simple()
+                        .content(result.data.Message)
+                        .position('bottom right')
+                        .hideDelay(7500)
+                );
+            }
+
+            function handleObjectiveSuccess(){
+                hide();
+            }
+        }
+
         function hide() {
-            $mdDialog.hide(vm.objective);
+            $mdDialog.hide();
         }
 
         function cancel() {

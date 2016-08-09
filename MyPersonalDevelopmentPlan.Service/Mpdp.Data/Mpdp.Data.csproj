@@ -128,6 +128,10 @@
     <Compile Include="Migrations\201608062254194_Property rename.Designer.cs">
       <DependentUpon>201608062254194_Property rename.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608081820101_Adding TimeLogged.cs" />
+    <Compile Include="Migrations\201608081820101_Adding TimeLogged.Designer.cs">
+      <DependentUpon>201608081820101_Adding TimeLogged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MpdpContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -192,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608062254194_Property rename.resx">
       <DependentUpon>201608062254194_Property rename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608081820101_Adding TimeLogged.resx">
+      <DependentUpon>201608081820101_Adding TimeLogged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

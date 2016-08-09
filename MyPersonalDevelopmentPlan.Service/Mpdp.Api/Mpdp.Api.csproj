@@ -122,6 +122,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnalyticsController.cs" />
     <Compile Include="Controllers\ApiBaseController.cs" />
     <Compile Include="Controllers\EffortLoggingController.cs" />
     <Compile Include="Controllers\GoalController.cs" />
@@ -146,6 +147,8 @@
     <Compile Include="Infrastructure\Validators\PasswordAlterationViewModelValitaros.cs" />
     <Compile Include="Infrastructure\Validators\UserProfileViewModelValidaror.cs" />
     <Compile Include="Infrastructure\Validators\WorkedLogValidators.cs" />
+    <Compile Include="Models\GoalsStatisticsViewModel.cs" />
+    <Compile Include="Models\GoalPerformanceViewModel.cs" />
     <Compile Include="Models\GoalViewModel.cs" />
     <Compile Include="Models\ObjectiveViewModel.cs" />
     <Compile Include="Models\PasswordAlterationViewModel.cs" />

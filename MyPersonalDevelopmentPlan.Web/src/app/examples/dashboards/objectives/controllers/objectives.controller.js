@@ -32,24 +32,37 @@
             vm.goalSelected = goal;
         };
 
-        $scope.$on('addObjective', function( ev ){
+        //TODO: Add a function for creating objective
+        $scope.$on('addObjective', function(ev){
             if(vm.goalSelected != null){
                 $mdDialog.show({
                     templateUrl: 'app/examples/dashboards/objectives/views/add-objective-dialog.tmpl.html',
                     targetEvent: ev,
                     controller: 'ObjectiveDialogController',
-                    controllerAs: 'vm'
+                    controllerAs: 'vm',
+                    locals: {
+                        goalId: vm.goalSelected.Id
+                    }
                 })
-                .then(function(objective) {
-                        objective.goalId = vm.goalSelected.Id;
-                        //todo: move thi on the delegate controller - ObjectiveDialogController
-                        GoalsService.addObjective(objective, handleObjectiveSuccess, handleFailed);
+                .then(function() {
+                        GoalsService.getGoal(vm.goalSelected.Id, success, failure);
+
+                        function success(result){
+                            vm.goalSelected = result.data;
+                        }
+
+                        function failure(result){
+                            $mdToast.simple()
+                                .content(result.data.Message)
+                                .position('bottom right')
+                                .hideDelay(2000)
+                        }
                 });
             }
             else{
                 $mdToast.show(
                     $mdToast.simple()
-                        .content("Please select a goal first.")
+                        .content("Please select a goal first")
                         .position('bottom right')
                         .hideDelay(2000)
                 );
@@ -136,10 +149,6 @@
         function handleGoalSuccess(result){
             vm.goalsResult.goals = result.data.goals;
             vm.goalsResult.goalsCount = result.data.goalsCount;
-        }
-
-        function handleObjectiveSuccess(result){
-            vm.goalSelected.Objectives.push(result.data);
         }
 
         function handleFailed(result){

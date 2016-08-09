@@ -6,7 +6,7 @@
         .directive('chartjsPieWidget', chartjsPieWidget);
 
     /* @ngInject */
-    function chartjsPieWidget($timeout) {
+    function chartjsPieWidget($timeout, ApiWebService) {
         // Usage:
         //
         // Creates:
@@ -46,8 +46,8 @@
             });
 
             $scope.pieChart = {
-                labels: ['Facebook', 'Twitter', 'Google+', 'Others'],
-                data: [300, 500, 100, 50]
+                labels: ['Open', 'In Progress', 'Blocked', 'Ready to be done', 'Done', 'Stand by', 'Closed'],
+                data: [10, 50, 10, 50, 10, 5, 10, 0]
             };
         }
     }

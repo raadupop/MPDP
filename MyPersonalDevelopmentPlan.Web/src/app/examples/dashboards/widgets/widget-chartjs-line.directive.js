@@ -6,11 +6,8 @@
         .directive('chartjsLineWidget', chartjsLineWidget);
 
     /* @ngInject */
-    function chartjsLineWidget($timeout, $interval) {
-        // Usage:
-        //
-        // Creates:
-        //
+    function chartjsLineWidget($timeout, $interval, ApiWebService, ApiConfig, $rootScope) {
+
         var directive = {
             require: 'triWidget',
             link: link,
@@ -49,7 +46,7 @@
             });
 
             $scope.lineChart = {
-                labels: ['May', 'June', 'July', 'August', 'September'],
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 series: ['Efficiency', 'Worked time', 'Success rate'],
                 options: {
                     datasetFill: false,
@@ -63,10 +60,37 @@
                 for(var series = 0; series < $scope.lineChart.series.length; series++) {
                     var row = [];
                     for(var label = 0; label < $scope.lineChart.labels.length; label++) {
-                        row.push(Math.floor((Math.random() * 100) + 1));
+                        row.push(Math.floor((Math.random() * 150) + 1));
                     }
                     $scope.lineChart.data.push(row);
                 }
+
+                var config = {
+                    params: {
+                        userId: $rootScope.globals.currentUser.userProfileId
+                    }
+                };
+
+                ApiWebService.get(ApiConfig + 'analytics/getgoalsperformance', config, success, failed);
+
+                function success(result){
+                    $scope.lineChart.data = [];
+                    for(var series = 0; series < $scope.lineChart.series.length; series++) {
+                        var row = [];
+                        for(var label = 0; label < $scope.lineChart.labels.length; label++) {
+                            row.push(result.data.;
+                        }
+                        $scope.lineChart.data.push(row);
+                    }
+                }
+
+                function failed(result){
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .content(result.data)
+                            .position('bottom right')
+                            .hideDelay(1500)
+                    );
             }
 
             // Simulate async data update

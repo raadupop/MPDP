@@ -53,10 +53,11 @@
             "LIKES": "Likes",
             "REACH": "Reach",
             "PAGEVIEWS": "Pageviews & Visits",
-            "REFERRALS": "Referral Traffic",
-            "SOCIAL": "Network Referrals",
+            "DELAY": "Goals with delay",
+            "STATUS": "Goals status statistics",
             "LOCATION": "Location",
-            "DATE": "11/03/15 - 11/4/15"
+            "DELAYCOUNT": "Last 8 goals",
+            "DATE": "01/01/2016 - 31/12/2016"
         },
         "SERVER": {
             "IP": "IP Address",

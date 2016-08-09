@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mpdp.Entities
 {
@@ -26,6 +22,7 @@ namespace Mpdp.Entities
     public Status GoalStatus { get; set; }
     public Int64 EstimationTicks { get; set; }
     public Int64 RemainingEstimatesTicks { get; set; }
+    public Int64 TimeLoggedTicks { get; set; }
 
     public virtual ICollection<Objective> Objectives { get; set; }
 
@@ -41,6 +38,13 @@ namespace Mpdp.Entities
     {
       get { return TimeSpan.FromTicks(RemainingEstimatesTicks); }
       set { RemainingEstimatesTicks = value.Ticks; }
+    }
+
+    [NotMapped]
+    public TimeSpan TimeLogged
+    {
+      get { return TimeSpan.FromTicks(TimeLoggedTicks); }
+      set { TimeLoggedTicks = value.Ticks; }
     }
   }
 }

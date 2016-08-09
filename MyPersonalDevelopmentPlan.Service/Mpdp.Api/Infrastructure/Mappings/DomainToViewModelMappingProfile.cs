@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
-using Mpdp.Api.Infrastructure.Extension;
+﻿using AutoMapper;
 using Mpdp.Api.Models;
 using Mpdp.Entities;
 
@@ -26,7 +21,8 @@ namespace Mpdp.Api.Infrastructure.Mappings
         .ForMember(vm => vm.ObjectivesCount, map => map.MapFrom(g => g.Objectives.Count))
         .ForMember(vm => vm.Username, map => map.MapFrom(g => g.UserProfile.User.Username))
         .ForSourceMember(g => g.EstimationTicks, vm => vm.Ignore())
-        .ForSourceMember(g => g.RemainingEstimatesTicks, vm => vm.Ignore());
+        .ForSourceMember(g => g.RemainingEstimatesTicks, vm => vm.Ignore())
+        .ForSourceMember(g => g.TimeLoggedTicks, vm => vm.Ignore());
 
       Mapper.CreateMap<Objective, ObjectiveViewModel>()
         .ForSourceMember(g => g.EstimationTicks, vm => vm.Ignore())
@@ -35,6 +31,11 @@ namespace Mpdp.Api.Infrastructure.Mappings
 
       Mapper.CreateMap<WorkedLog, WorkedLogViewModel>()
         .ForSourceMember(w => w.TimeWorkedTicks, vm => vm.Ignore());
+
+      Mapper.CreateMap<GoalPerformance, GoalPerformanceViewModel>();
+
+      Mapper.CreateMap<GoalsStatistics, GoalsStatisticsViewModel>();
+
     }
 
 

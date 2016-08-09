@@ -42,7 +42,7 @@
                     </div>
                     <div flex layout="row" class="margin-bottom-20">
                         <div flex>
-                            <strong>Effort estimation by time</strong>
+                            <strong>Original estimate by time</strong>
                         </div>
                         <div flex>
                             <span>{{vm.goal.Estimation | duration}}</span>
@@ -56,6 +56,15 @@
                             <span>{{vm.goal.RemainingEstimates | duration}}</span>
                         </div>
                     </div>
+                    <div flex layout="row" class="margin-bottom-20">
+                        <div flex>
+                            <strong>Time worked</strong>
+                        </div>
+                        <div flex>
+                            <span>{{vm.goal.TimeLogged | duration}}</span>
+                        </div>
+                    </div>
+
                     <div flex layout="row" class="margin-bottom-20">
                         <div flex>
                             <strong>Number of objectives subscribed</strong>

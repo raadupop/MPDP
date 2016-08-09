@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Mpdp.Api.Models;
 using Mpdp.Entities;
 
@@ -20,7 +17,7 @@ namespace Mpdp.Api.Infrastructure.Extension
       goal.RemainingEstimates = goalVm.Estimation;
       goal.DateCreated = goalVm.DateCreated;
       goal.UserProfileId = goalVm.UserProfileId;
-      //goal.UserProfile = goalVm.UserProfile <- todo
+      //todo: goal.UserProfile = goalVm.UserProfile
     }
 
     public static void CreateGoal(this Goal goal, GoalViewModel goalVm)
@@ -30,6 +27,7 @@ namespace Mpdp.Api.Infrastructure.Extension
       goal.Estimation = goalVm.Estimation;
       goal.GoalStatus = Status.Open;
       goal.Progress = 0;
+      goal.TimeLogged = TimeSpan.Zero;
       goal.RemainingEstimates = goalVm.Estimation;
       goal.DateCreated = DateTime.Now;
     }

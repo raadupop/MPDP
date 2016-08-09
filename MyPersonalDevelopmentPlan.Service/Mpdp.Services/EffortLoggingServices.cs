@@ -48,9 +48,9 @@ namespace Mpdp.Services
 
     #region Helpers method
 
-    private void UpdateEstimation(Objective objective, TimeSpan duration)
+    private void UpdateEstimation(Objective objective, TimeSpan workedTime)
     {
-      var objectiveDifference = objective.RemainingEstimates - duration;
+      var objectiveDifference = objective.RemainingEstimates - workedTime;
 
       objective.RemainingEstimates = objectiveDifference < TimeSpan.Zero ? TimeSpan.Zero : objectiveDifference;
 
@@ -59,8 +59,9 @@ namespace Mpdp.Services
 
       var goal = _goalRepository.GetSingle(objective.GoalId);
 
-      var goaldDifference = goal.RemainingEstimates - duration;
+      var goaldDifference = goal.RemainingEstimates - workedTime;
 
+      goal.TimeLogged += workedTime;
       goal.RemainingEstimates = goaldDifference < TimeSpan.Zero ? TimeSpan.Zero : goaldDifference;
       
       _goalRepository.Edit(goal);

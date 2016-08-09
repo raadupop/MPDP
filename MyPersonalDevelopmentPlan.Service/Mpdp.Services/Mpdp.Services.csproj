@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAnalyticsServices.cs" />
     <Compile Include="Abstract\IEffortLoggingServices.cs" />
     <Compile Include="Abstract\IMembershipServices.cs" />
+    <Compile Include="AnalyticsServices.cs" />
     <Compile Include="EffortLoggingServices.cs" />
     <Compile Include="EncryptionServices.cs" />
     <Compile Include="Abstract\IEncryptionServices.cs" />

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -9,7 +7,6 @@ using Mpdp.Api.Models;
 using Mpdp.Data.Infrastructure;
 using Mpdp.Data.Repositories;
 using Mpdp.Entities;
-using Mpdp.Services.Abstract;
 
 namespace Mpdp.Api.Controllers
 {
@@ -17,7 +14,6 @@ namespace Mpdp.Api.Controllers
   {
     private readonly IEntityBaseRepository<UserProfile> _userProfileRepository;
     private readonly IEntityBaseRepository<User> _userRepository;
-    
 
     public UserProfileController(IEntityBaseRepository<UserProfile> userProfileRepository, IEntityBaseRepository<User> userRepository, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork) : base(errorsRepository, unitOfWork)
     {
@@ -30,7 +26,7 @@ namespace Mpdp.Api.Controllers
     {
       return CreateHttpResponse(request, () =>
       {
-        HttpResponseMessage response = null;
+        HttpResponseMessage response;
         var userProfile = _userProfileRepository.FindBy(u => u.User.Username == username).FirstOrDefault();
 
         if (userProfile != null)

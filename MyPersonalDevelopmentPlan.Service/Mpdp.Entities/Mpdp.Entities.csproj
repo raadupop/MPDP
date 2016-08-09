@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="ClosedResolution.cs" />
     <Compile Include="Error.cs" />
+    <Compile Include="GoalPerformance.cs" />
+    <Compile Include="GoalsStatistics.cs" />
     <Compile Include="IEntityBase.cs" />
     <Compile Include="Goal.cs" />
     <Compile Include="Rank.cs" />

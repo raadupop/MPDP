@@ -40,8 +40,7 @@ namespace Mpdp.Api.Controllers
         }
         else
         {
-          Goal newGoal = new Goal();
-
+          var newGoal = new Goal();
           newGoal.CreateGoal(goal);
 
           //Asign goal to a user
@@ -204,7 +203,7 @@ namespace Mpdp.Api.Controllers
     //todo: throw 404 when goal isn't specified correct
     [HttpPut]
     [Route("update")]
-    public HttpResponseMessage Update(HttpRequestMessage request, GoalViewModel goal)
+    public HttpResponseMessage Update(HttpRequestMessage request, GoalViewModel goalViewModel)
     {
       return CreateHttpResponse(request, () =>
       {
@@ -216,17 +215,18 @@ namespace Mpdp.Api.Controllers
         }
         else
         {
-          Goal goalToUpdate = new Goal();
-          goalToUpdate.UpdateGoal(goal);
+          var goal = Mapper.Map<GoalViewModel, Goal>(goalViewModel);
+          //Goal goalToUpdate = new Goal();
+          //goalToUpdate.UpdateGoal(goal);
 
           //todo: (this is temporary), change the business for the user mapping problem in UserProfile
           var userProfile = _userProfileRepository.GetSingle(goal.UserProfileId);
-          goalToUpdate.UserProfile = userProfile;
+          goal.UserProfile = userProfile;
 
-          _goalRepository.Edit(goalToUpdate);
+          _goalRepository.Edit(goal);
           _unitOfWork.Commit();
 
-          GoalViewModel goalUpdated = Mapper.Map<Goal, GoalViewModel>(goalToUpdate);
+          GoalViewModel goalUpdated = Mapper.Map<Goal, GoalViewModel>(goal);
           response = request.CreateResponse(HttpStatusCode.Created, goalUpdated);
         }
 
