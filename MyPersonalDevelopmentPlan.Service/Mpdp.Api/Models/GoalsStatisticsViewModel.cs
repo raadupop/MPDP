@@ -13,7 +13,7 @@ namespace Mpdp.Api.Models
     public int DoneGoalsCount { get; set; }
     public int StandByGoalsCount { get; set; }
     public int ClosedGoalsCount { get; set; }
-    public int ObjecivesCount { get; set; }
-    public int ObjectiveInProgressCount { get; set; }
+    public int ObjectivesCount { get; set; }
+    public int ObjectivesInProgressCount { get; set; }
   }
 }

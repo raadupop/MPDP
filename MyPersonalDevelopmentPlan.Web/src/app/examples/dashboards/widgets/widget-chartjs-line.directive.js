@@ -6,7 +6,7 @@
         .directive('chartjsLineWidget', chartjsLineWidget);
 
     /* @ngInject */
-    function chartjsLineWidget($timeout, $interval, ApiWebService, ApiConfig, $rootScope) {
+    function chartjsLineWidget($timeout, $interval, ApiWebService, ApiConfig, $rootScope, $mdToast) {
 
         var directive = {
             require: 'triWidget',
@@ -20,7 +20,7 @@
 
             $timeout(function() {
                 widgetCtrl.setLoading(false);
-                randomData();
+                getData();
             }, 1500);
 
             widgetCtrl.setMenu({
@@ -47,7 +47,7 @@
 
             $scope.lineChart = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                series: ['Efficiency', 'Worked time', 'Success rate'],
+                series: ['Efficiency', 'Total worked time'],
                 options: {
                     datasetFill: false,
                     responsive: true
@@ -55,42 +55,49 @@
                 data: []
             };
 
-            function randomData() {
-                $scope.lineChart.data = [];
-                for(var series = 0; series < $scope.lineChart.series.length; series++) {
-                    var row = [];
-                    for(var label = 0; label < $scope.lineChart.labels.length; label++) {
-                        row.push(Math.floor((Math.random() * 150) + 1));
-                    }
-                    $scope.lineChart.data.push(row);
-                }
+            function getData() {
 
                 var config = {
                     params: {
-                        userId: $rootScope.globals.currentUser.userProfileId
+                        userProfileId: $rootScope.globals.currentUser.userProfileId
                     }
                 };
 
                 ApiWebService.get(ApiConfig + 'analytics/getgoalsperformance', config, success, failed);
 
-                function success(result){
+                function success(result) {
                     $scope.lineChart.data = [];
-                    for(var series = 0; series < $scope.lineChart.series.length; series++) {
-                        var row = [];
-                        for(var label = 0; label < $scope.lineChart.labels.length; label++) {
-                            row.push(result.data.;
-                        }
-                        $scope.lineChart.data.push(row);
+                    var rowE = [];
+                    var rowW = [];
+
+                    for(var i = 0; i < result.data.length; i++){
+                        rowE.push(result.data[i].Efficiency);
+                        rowW.push(result.data[i].WorkedHours);
                     }
+
+                    $scope.lineChart.data.push(rowE);
+                    $scope.lineChart.data.push(rowW);
+
+                    // Moked data
+                    //
+                    //$scope.lineChart.data = [];
+                    //for(var series = 0; series < $scope.lineChart.series.length; series++) {
+                    //    var row = [];
+                    //    for(var label = 0; label < $scope.lineChart.labels.length; label++) {
+                    //        row.push(Math.floor((Math.random() * 350) + 1));
+                    //    }
+                    //    $scope.lineChart.data.push(row);
+                    //}
                 }
 
-                function failed(result){
+                function failed(result) {
                     $mdToast.show(
                         $mdToast.simple()
                             .content(result.data)
                             .position('bottom right')
                             .hideDelay(1500)
                     );
+                }
             }
 
             // Simulate async data update

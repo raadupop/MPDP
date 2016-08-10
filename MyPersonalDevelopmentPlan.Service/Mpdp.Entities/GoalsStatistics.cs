@@ -14,7 +14,7 @@
       StandByGoalsCount = 0;
       ClosedGoalsCount = 0;
       OpenGoalsCount = 0;
-      ObjectiveInProgressCount = 0;
+      ObjectivesInProgressCount = 0;
     }
 
     public int GoalsCount { get; set; }
@@ -26,7 +26,7 @@
     public int DoneGoalsCount { get; set; }
     public int StandByGoalsCount { get; set; }
     public int ClosedGoalsCount { get; set; }
-    public int ObjecivesCount { get; set; }
-    public int ObjectiveInProgressCount { get; set; }
+    public int ObjectivesCount { get; set; }
+    public int ObjectivesInProgressCount { get; set; }
   }
 }

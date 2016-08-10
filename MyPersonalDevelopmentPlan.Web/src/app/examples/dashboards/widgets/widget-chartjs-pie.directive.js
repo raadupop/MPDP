@@ -6,7 +6,7 @@
         .directive('chartjsPieWidget', chartjsPieWidget);
 
     /* @ngInject */
-    function chartjsPieWidget($timeout, ApiWebService) {
+    function chartjsPieWidget($timeout, ApiWebService, ApiConfig, $rootScope, $mdToast) {
         // Usage:
         //
         // Creates:
@@ -23,6 +23,7 @@
 
             $timeout(function() {
                 widgetCtrl.setLoading(false);
+                getData();
             }, 1500);
 
             widgetCtrl.setMenu({
@@ -47,8 +48,43 @@
 
             $scope.pieChart = {
                 labels: ['Open', 'In Progress', 'Blocked', 'Ready to be done', 'Done', 'Stand by', 'Closed'],
-                data: [10, 50, 10, 50, 10, 5, 10, 0]
+                data: []
             };
+
+            function getData(){
+
+                var config = {
+                    params: {
+                        userProfileId: $rootScope.globals.currentUser.userProfileId
+                    }
+                };
+
+                ApiWebService.get(ApiConfig + 'analytics/getgoalsstatistics', config, success, failed);
+
+                function success(result) {
+                    $scope.pieChart.data = [];
+
+                    $scope.pieChart.data.push(
+                        result.data.OpenGoalsCount,
+                        result.data.InProgressGoalsCount,
+                        result.data.BlockedGoalsCount,
+                        result.data.ReadyToBeDoneCount,
+                        result.data.DoneGoalsCount,
+                        result.data.StandByGoalsCount,
+                        result.data.ClosedGoalsCount);
+                }
+
+                function failed(result) {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .content(result.data)
+                            .position('bottom right')
+                            .hideDelay(1500)
+                    );
+                }
+
+
+            }
         }
     }
 })();

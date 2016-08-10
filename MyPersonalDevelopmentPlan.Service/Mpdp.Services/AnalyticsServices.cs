@@ -22,7 +22,7 @@ namespace Mpdp.Services
 
       return new GoalPerformance()
       {
-        Eficency = (int) efficiency,
+        Efficiency = (int) efficiency,
         Month = month,
         WorkedHours = (int) goal.TimeLogged.TotalHours,
         OverTime = TimeSpan.FromTicks(overTime)
@@ -36,7 +36,7 @@ namespace Mpdp.Services
 
       for (var m = date.Month; m <= 12; m++)
       {
-        var averageGoalsByMonthPerformance = new GoalPerformance() { Month = m, Eficency = 0, OverTime = TimeSpan.Zero, WorkedHours = 0 };
+        var averageGoalsByMonthPerformance = new GoalPerformance() { Month = m, Efficiency = 0, OverTime = TimeSpan.Zero, WorkedHours = 0 };
         var numberOfGoals = 0;
 
         foreach (var goal in goals)
@@ -46,12 +46,12 @@ namespace Mpdp.Services
             var goalEfficiency = GetGoalEfficiency(goal, m);
 
             numberOfGoals++;
-            averageGoalsByMonthPerformance.Eficency += goalEfficiency.Eficency;
+            averageGoalsByMonthPerformance.Efficiency += goalEfficiency.Efficiency;
             averageGoalsByMonthPerformance.OverTime += goalEfficiency.OverTime;
             averageGoalsByMonthPerformance.WorkedHours += goalEfficiency.WorkedHours;
           }
         }
-        averageGoalsByMonthPerformance.Eficency = (numberOfGoals > 0) ? (int) Divide(averageGoalsByMonthPerformance.Eficency, numberOfGoals) : 0;
+        averageGoalsByMonthPerformance.Efficiency = (numberOfGoals > 0) ? (int) Divide(averageGoalsByMonthPerformance.Efficiency, numberOfGoals) : 0;
         averageGoalsByMonthPerformance.OverTime = (averageGoalsByMonthPerformance.OverTime < TimeSpan.Zero) ? TimeSpan.Zero : averageGoalsByMonthPerformance.OverTime;
         goalsPerformanceByMonth.Add(averageGoalsByMonthPerformance);
       }
@@ -65,6 +65,8 @@ namespace Mpdp.Services
 
       foreach (var goal in goals)
       {
+        statistics.ObjectivesCount += goal.Objectives.Count;
+
         switch (goal.GoalStatus)
         {
           case Status.Blocked:

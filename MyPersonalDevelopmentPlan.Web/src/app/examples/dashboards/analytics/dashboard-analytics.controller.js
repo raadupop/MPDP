@@ -6,7 +6,9 @@
         .controller('DashboardAnalyticsController', DashboardAnalyticsController);
 
     /* @ngInject */
-    function DashboardAnalyticsController($timeout, $mdToast, $rootScope, $state) {
+    function DashboardAnalyticsController($scope, $timeout, $mdToast, $rootScope, $state, ApiWebService, ApiConfig) {
+        var vm = this;
+
         $timeout(function() {
             $rootScope.$broadcast('newMailNotification');
             $mdToast.show({
@@ -16,7 +18,32 @@
                 position: 'bottom right',
                 hideDelay: 5000
             });
+
         }, 10000);
+
+        function getData(){
+
+            var config = {
+                params: {
+                    userProfileId: $rootScope.globals.currentUser.userProfileId
+                }
+            };
+
+            ApiWebService.get(ApiConfig + 'analytics/getgoalsstatistics', config, success, failed);
+
+            function success(result){
+                vm.statistics = result.data;
+            }
+
+            function failed(result){
+                $mdToast.simple()
+                    .content(result.data.Message)
+                    .position('bottom right')
+                    .hideDelay(2000)
+            }
+        }
+
+        getData();
 
         //////////////
 
@@ -25,6 +52,7 @@
             vm.viewUnread = function() {
                 $state.go('admin-panel-email-no-scroll.email.inbox');
             };
+
         }
     }
 })();

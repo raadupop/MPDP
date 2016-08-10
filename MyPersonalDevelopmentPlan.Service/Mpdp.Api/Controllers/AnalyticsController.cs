@@ -33,7 +33,7 @@ namespace Mpdp.Api.Controllers
         var goals = _goalRepository.All.Where(g => g.DateCreated.Year.Equals(DateTime.Now.Year) && g.UserProfileId == userProfileId).ToList();
         var statistics = _analyticsServices.GetGoalsStatistics(goals);
 
-        var statisticsViewModel = Mapper.Map<GoalsStatistics, GoalsStatistics>(statistics);
+        var statisticsViewModel = Mapper.Map<GoalsStatistics, GoalsStatisticsViewModel>(statistics);
         var response = request.CreateResponse(HttpStatusCode.OK, statisticsViewModel);
 
         return response;
